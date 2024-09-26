@@ -1,2 +1,2 @@
 # Protein-Kel4
-Proyek mata kuliah Proyek Teknologi Informasi
+Repositori Proyek untuk mata kuliah "Proyek Teknologi Informasi".
