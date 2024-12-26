@@ -1,8 +1,11 @@
 // routes/penawaranRoutes.js
 const express = require("express");
-const penawaranController = require("../controllers/penawaranController");
-
 const router = express.Router();
+const penawaranController = require("../controllers/penawaranController");
+const authMiddleware = require("../middleware/authMiddleware");
+
+// Middleware untuk otentikasi
+router.use(authMiddleware.verifyToken);
 
 // Rute untuk membuat penawaran baru
 router.post("/", penawaranController.createPenawaran);

@@ -3,12 +3,14 @@ const mongoose = require("mongoose");
 // Skema untuk Jadwal
 const jadwalSchema = new mongoose.Schema(
   {
-    id_penawaran: {
-      type: String,
+    penawaran: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Penawaran", // Referensi ke model Penawaran
       required: [true, "Penawaran ID is required"],
     },
-    id_pemandu: {
-      type: String,
+    pemandu: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // Referensi ke model User (karena pemandu adalah user)
       required: [true, "Guide ID is required"],
     },
     tanggal: {

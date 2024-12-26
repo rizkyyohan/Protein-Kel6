@@ -1,25 +1,15 @@
-// models/Chat.js
-
 const mongoose = require("mongoose");
 
 const chatSchema = new mongoose.Schema({
-  id_chat: {
-    type: String,
+  pengirim: {
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
-    unique: true,
+    ref: "User", // Referensi ke model User
   },
-  id_pemandu: {
-    type: String,
+  penerima: {
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "Pemandu",
-  },
-  id_pengguna: {
-    type: String,
-    required: true,
-    ref: "User",
-  },
-  profile_picture: {
-    type: String,
+    ref: "User", // Referensi ke model User
   },
   isi_chat: {
     type: String,

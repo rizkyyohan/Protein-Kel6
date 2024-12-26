@@ -2,6 +2,10 @@
 const express = require("express");
 const router = express.Router();
 const ratingController = require("../controllers/ratingController");
+const authMiddleware = require("../middleware/authMiddleware");
+
+// Middleware untuk otentikasi
+router.use(authMiddleware.verifyToken);
 
 // Menambahkan rating baru
 router.post("/", ratingController.addRating);

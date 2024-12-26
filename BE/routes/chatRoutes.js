@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const chatController = require("../controllers/chatController");
+const authMiddleware = require("../middleware/authMiddleware");
+
+// Middleware untuk otentikasi
+router.use(authMiddleware.verifyToken);
 
 // Route untuk mendapatkan semua chat
 router.get("/", chatController.getAllChats);

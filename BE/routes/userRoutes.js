@@ -3,21 +3,28 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 const { verifyToken, verifyRole } = require("../middleware/authMiddleware");
 
-// Mendapatkan semua pengguna (hanya admin yang dapat mengakses)
-router.get("/", verifyToken, verifyRole("admin"), userController.getAllUsers);
+// Middleware untuk otentikasi
+router.use(verifyToken);
 
-// Mendapatkan data pengguna berdasarkan ID
-router.get("/:id", verifyToken, userController.getUserById);
+// Mendapatkan semua pengguna (hanya admin)
+router.get("/", verifyRole("admin"), userController.getAllUsers);
 
-// Memperbarui data pengguna berdasarkan ID
-router.put("/:id", verifyToken, userController.updateUser);
+// Mendapatkan data pengguna berdasarkan ID (hanya user sendiri atau admin)
+router.get("/:id", authorizeUserAccess, userController.getUserById);
 
-// Menghapus pengguna berdasarkan ID
-router.delete(
-  "/:id",
-  verifyToken,
-  verifyRole("admin"),
-  userController.deleteUser
-);
+// Memperbarui data pengguna berdasarkan ID (hanya user sendiri atau admin)
+router.put("/:id", authorizeUserAccess, userController.updateUser);
+
+// Menghapus pengguna berdasarkan ID (hanya admin)
+router.delete("/:id", verifyRole("admin"), userController.deleteUser);
+
+// Middleware untuk autorisasi user
+function authorizeUserAccess(req, res, next) {
+  if (req.user.role === "admin" || req.user.id === req.params.id) {
+    next();
+  } else {
+    return res.status(403).json({ message: "Forbidden" });
+  }
+}
 
 module.exports = router;

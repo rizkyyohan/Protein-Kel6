@@ -33,6 +33,25 @@ const UserSchema = new mongoose.Schema(
     profile_picture: {
       type: String,
     },
+    pengalaman: { // Field khusus untuk pemandu
+      type: Number,
+      min: 0,
+    },
+    kebiasaan: { // Field khusus untuk pemandu
+      type: String,
+    },
+    gender: { // Field khusus untuk pemandu
+      type: String,
+      enum: ["Male", "Female"],
+    },
+    harga: { // Field khusus untuk pemandu
+      type: Number,
+      min: 0,
+    },
+    status_aktif: { // Field khusus untuk pemandu
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );

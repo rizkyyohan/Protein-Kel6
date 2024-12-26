@@ -2,26 +2,42 @@
 const mongoose = require("mongoose");
 
 const guideSchema = new mongoose.Schema({
-  nama: {
-    type: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // Referensi ke model User
     required: true,
-  },
-  no_telepon: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
   },
   pengalaman: {
-    type: String,
+    type: Number, // Ubah tipe data menjadi Number
     required: true,
+    min: 0, // Memastikan pengalaman tidak negatif
   },
-  rating: {
+  kebiasaan: {
+    type: String,
+  },
+  gender: {
+    type: String,
+    enum: ["Male", "Female"], // Membatasi nilai gender
+  },
+  alamat: {
+    type: String,
+  },
+  harga: {
     type: Number,
-    default: 0,
+    required: true,
+    min: 0, // Memastikan harga tidak negatif
+  },
+  status_aktif: {
+    type: Boolean,
+    default: true,
+  },
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
+  updated_at: {
+    type: Date,
+    default: Date.now,
   },
 });
 

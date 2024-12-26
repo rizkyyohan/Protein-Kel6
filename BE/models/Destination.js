@@ -13,6 +13,7 @@ const destinationSchema = new mongoose.Schema({
   harga_tiket: {
     type: Number,
     required: true,
+    min: 0, // Memastikan harga tiket tidak negatif
   },
   kategori: {
     type: String,
@@ -21,6 +22,8 @@ const destinationSchema = new mongoose.Schema({
   rate: {
     type: Number,
     default: 0.0,
+    min: 0,
+    max: 5, // Memastikan rate berada di antara 0 dan 5
   },
   fasilitas: {
     type: String,
@@ -29,6 +32,36 @@ const destinationSchema = new mongoose.Schema({
   keterangan: {
     type: String,
     required: true,
+  },
+  gambar: {
+    type: String, // Untuk menyimpan URL gambar
+  },
+  akses_kursi_roda: {
+    type: Boolean,
+    default: false,
+  },
+  toilet_disabilitas: {
+    type: Boolean,
+    default: false,
+  },
+  braille: {
+    type: Boolean,
+    default: false,
+  },
+  audio_guide: {
+    type: Boolean,
+    default: false,
+  },
+  deskripsi_aksesibilitas: {
+    type: String,
+  },
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
+  updated_at: {
+    type: Date,
+    default: Date.now,
   },
 });
 
