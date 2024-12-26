@@ -7,6 +7,9 @@ import Pemesanan from './page/user/pemesanan.jsx';
 import Pembayaran from './page/user/pembayaran.jsx';
 import HeaderUser from './layout/header user.jsx';
 import Footer from './layout/footer.jsx';
+import LandingPage from "./components/LandingPage.jsx";
+import DashboardPemandu from "./page/pemandu/DashboardPemandu.jsx";
+import Destinasi from "./page/user/destinasi.jsx";
 
 function App() {
   return (
@@ -35,6 +38,38 @@ function App() {
               </div>
             } 
           />
+
+          <Route
+          path="/LandingPage"
+          element={
+             <div>
+              <LandingPage/>
+             </div> 
+          }
+          />
+
+        <Route
+          path="/DashboardPemandu"
+          element={
+             <div>
+              <HeaderUser />
+              <DashboardPemandu/>
+              <Footer />
+             </div> 
+          }
+          />
+
+        <Route 
+            path="/destinasi" 
+            element={
+              <div>
+                <HeaderUser />
+                <Destinasi />
+                <Footer />
+              </div>
+            } 
+          />
+
           <Route 
             path="/pembayaran" 
             element={
