@@ -1,93 +1,84 @@
-import React from "react";
+import React from 'react';
 
-const LandingPage = () => {
+const TravelAble = () => {
   return (
-    <div className="bg-gray-50 text-gray-800">
-      {/* Header Section */}
-      <header className="bg-white py-10 px-5 text-center">
-        <h1 className="text-4xl font-bold mb-4">
-          Mulai perjalanan Anda dengan <span className="text-orange-500">TravelAble</span> dan jelajahi destinasi tanpa batas!
-        </h1>
-        <p className="text-lg mb-6">
-          Rencanakan dan pesan perjalanan sempurna Anda dengan saran ahli, kiat perjalanan, informasi destinasi, dan inspirasi dari kami!
-        </p>
+    <div className="bg-white font-sans">
+      {/* Header */}
+      <header className="bg-white shadow-md p-6 flex justify-between items-center">
+        <div className="text-3xl font-bold text-blue-900">TravelAble</div>
+        <button className="bg-blue-700 text-white px-4 py-2 rounded-lg">Masuk</button>
       </header>
 
-      {/* Destinasi Populer Section */}
-      <section className="py-10 px-5">
-        <h2 className="text-3xl font-bold text-center mb-6">Destinasi Populer</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white shadow-lg p-4 rounded-md text-center">
-            <h3 className="text-lg font-bold">Kebun Binatang Bandung</h3>
-          </div>
-          <div className="bg-white shadow-lg p-4 rounded-md text-center">
-            <h3 className="text-lg font-bold">Farm House Susu Lembang</h3>
-          </div>
-          <div className="bg-white shadow-lg p-4 rounded-md text-center">
-            <h3 className="text-lg font-bold">Dusun Bambu Leisure Park</h3>
-          </div>
-          <div className="bg-white shadow-lg p-4 rounded-md text-center">
-            <h3 className="text-lg font-bold">Babakan Siliwangi</h3>
-          </div>
+      {/* Hero Section */}
+      <section className="p-10 bg-gray-50 text-center">
+        <h1 className="text-4xl font-bold text-blue-900 mb-4">Mulai perjalanan Anda dengan <span className="text-orange-500">TravelAble</span> dan jelajahi destinasi tanpa batas!</h1>
+        <p className="text-gray-600 mb-8">Rencanakan dan pesan perjalanan sempurna Anda dengan saran ahli, kiat perjalanan, informasi destinasi, dan inspirasi dari kami!</p>
+      </section>
+
+      {/* Popular Destinations */}
+      <section className="p-10">
+        <h2 className="text-3xl font-bold text-blue-900 mb-6">Destinasi Populer</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {['Kebun Binatang Bandung', 'Farm House Susu Lembang', 'Dusun Bambu Leisure Park', 'Babakan Siliwangi'].map((destination, index) => (
+            <div key={index} className="p-4 bg-white shadow-md rounded-lg">
+              <img src={`/images/destination-${index + 1}.jpg`} alt={destination} className="w-full h-32 object-cover rounded-md mb-4" />
+              <h3 className="text-lg font-semibold text-blue-900">{destination}</h3>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* Blog Section */}
-      <section className="py-10 px-5 bg-gray-100">
-        <h2 className="text-3xl font-bold text-center mb-6">TravelAble Blog</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-white shadow-lg p-4 rounded-md">
-            <h3 className="text-lg font-bold mb-2">Mau liburan ke Bandung? Sambangi wisata terkenalnya</h3>
-            <p className="text-sm text-gray-600">Tips</p>
+      <section className="p-10 bg-gray-50">
+        <h2 className="text-3xl font-bold text-blue-900 mb-6">TravelAble Blog</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-4 bg-white shadow-md rounded-lg">
+            <img src="/images/blog-1.jpg" alt="Blog" className="w-full h-40 object-cover rounded-md mb-4" />
+            <h3 className="text-lg font-semibold text-blue-900 mb-2">Mau liburan ke Bandung? Sambangi wisata terkenalnya</h3>
+            <p className="text-gray-600">Tips untuk menjelajahi Bandung dan sekitarnya.</p>
           </div>
-          <div className="bg-white shadow-lg p-4 rounded-md">
-            <h3 className="text-lg font-bold mb-2">Menyelami Budaya Sunda di Saung Angklung Udjo</h3>
-            <p className="text-sm text-gray-600">Artikel</p>
-          </div>
-          <div className="bg-white shadow-lg p-4 rounded-md">
-            <h3 className="text-lg font-bold mb-2">Serunya Berpetualang di Trans Studio Bandung</h3>
-            <p className="text-sm text-gray-600">Artikel</p>
+          <div className="p-4 bg-white shadow-md rounded-lg">
+            <h3 className="text-lg font-semibold text-blue-900 mb-2">Artikel</h3>
+            <p className="text-gray-600">Menyelami budaya Sunda di Saung Angklung Udjo.</p>
           </div>
         </div>
       </section>
 
-      {/* Fitur Section */}
-      <section className="py-10 px-5">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-          <div className="p-4">
-            <p className="text-lg font-bold">Asuransi yang terjamin saat Anda dalam perjalanan</p>
-          </div>
-          <div className="p-4">
-            <p className="text-lg font-bold">Privasi yang terjamin</p>
-          </div>
-          <div className="p-4">
-            <p className="text-lg font-bold">Waktu yang cepat saat mem-booking</p>
-          </div>
-        </div>
+      {/* Info Section */}
+      <section className="p-10 text-center">
+        <h2 className="text-3xl font-bold text-blue-900 mb-4">Dengan Pengalaman Kami, Kami Akan Melayani Anda</h2>
+        <p className="text-gray-600 mb-8">Kami percaya bahwa dunia ini indah dan layak dijelajahi oleh semua orang, termasuk Anda!</p>
+        <button className="bg-blue-700 text-white px-6 py-3 rounded-lg">Eksplor</button>
       </section>
 
-      {/* Eksplor Section */}
-      <section className="py-10 px-5 bg-gray-100">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold mb-6">
-            Dengan <span className="text-orange-500">Pengalaman Kami</span>, Kami Akan <span className="text-orange-500">Melayani Anda</span>
-          </h2>
-          <p className="text-lg mb-4">
-            Halo, Para wisatawan! Kami percaya bahwa dunia ini indah dan layak dijelajahi oleh semua orang, termasuk Anda!
-          </p>
-          <button className="bg-orange-500 text-white px-6 py-2 rounded-md font-bold">Eksplor</button>
+      {/* Footer */}
+      <footer className="bg-blue-900 text-white p-6 mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <h3 className="text-lg font-bold mb-2">Tentang TravelAble</h3>
+            <p className="text-sm">Platform wisata aksesibel untuk disabilitas dengan pemandu wisata terbaik.</p>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold mb-2">Panduan Informasi</h3>
+            <ul className="text-sm space-y-2">
+              <li>Panduan Pengguna</li>
+              <li>Tentang Kami</li>
+              <li>Kontak Dukungan</li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold mb-2">Hubungi Kami</h3>
+            <ul className="text-sm space-y-2">
+              <li>Alamat: Bojongsoang, Bandung</li>
+              <li>Email: support@travelable.com</li>
+              <li>Hotline: 0800-1234-5678</li>
+            </ul>
+          </div>
         </div>
-      </section>
-
-      {/* Footer Section */}
-      <footer className="bg-blue-900 text-white py-10 px-5">
-        <div className="text-center">
-          <p className="mb-4">© 2024 TravelAble</p>
-          <p>Alamat: Bojongsoang, Bandung | Email: support@travelable.com | Hotline: 0800-1234-5678</p>
-        </div>
+        <div className="mt-6 text-center text-sm">© TravelAble</div>
       </footer>
     </div>
   );
 };
 
-export default LandingPage;
+export default TravelAble;
