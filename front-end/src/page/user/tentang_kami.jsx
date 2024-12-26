@@ -1,11 +1,11 @@
 import React from "react";
-import Image from "../assets/k1.png"; 
-import k2 from "../assets/k2.png";
-import k11 from "../assets/k11.png";
-import k22 from "../assets/k22.png";
-import TKA from "../assets/TKA.png";
-import k33 from "../assets/k33.png";
-import k44 from "../assets/k44.png";
+import Image from "../user/assets/k1.png"; 
+import k2 from "../user/assets/k2.png";
+import k11 from "../user/assets/k11.png";
+import k22 from "../user/assets/k22.png";
+import TKA from "../user/assets/TKA.png";
+import k33 from "../user/assets/k33.png";
+import k44 from "../user/assets/k44.png";
 
 const TentangKami = () => {
   return (

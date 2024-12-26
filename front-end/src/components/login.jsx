@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
-// import kiri from  './';
 
-export default function LoginPage() {
+export default function LoginPage({ onLogin }) {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
+  const handleLogin = () => {
+    if (email === 'test@example.com' && password === 'password123') {
+      if (onLogin) {
+        onLogin(); // Panggil fungsi dari prop
+      }
+      window.location.href = '/tentang_kami'; // Redirect setelah login
+    } else {
+      alert('Email atau password salah');
+    }
+  };
   return (
     <div className="flex h-screen">
       {/* Bagian Kiri */}
       <div className="bg-[#242277] flex-1 flex items-center justify-center min-h-screen relative">
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
           <div className="absolute top-0 left-0 w-64 h-64 bg-orange-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-            <div className="absolute bottom-0 right-0 w-48 h-48 bg-blue-300 rounded-full transform translate-x-1/2 translate-y-1/2"></div>
-             <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-purple-800 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-48 h-48 bg-blue-300 rounded-full transform translate-x-1/2 translate-y-1/2"></div>
+          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-purple-800 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
         </div>
         <div className="relative z-10 flex items-center justify-center w-[500px] h-[500px]">
           <div className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-md rounded-lg p-6">
@@ -31,7 +42,7 @@ export default function LoginPage() {
             <p className="mb-4">
               Masukkan email Anda, kami akan mengirimkan tautan untuk mengatur ulang kata sandi.
             </p>
-            <inputs
+            <input
               type="email"
               placeholder="Email"
               className="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 mb-4 border border-[#242277]"
@@ -49,12 +60,16 @@ export default function LoginPage() {
             <p className="mb-4 text-[#242277]">Selamat datang mohon masukkan identitas anda</p>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
               className="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#242277] mb-4 border border-[#242277]"
             />
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 className="w-full py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#242277] mb-4 border border-[#242277]"
               />
@@ -66,7 +81,10 @@ export default function LoginPage() {
                 {showPassword ? <EyeOff /> : <Eye />}
               </button>
             </div>
-            <button className="w-full py-2 px-4 bg-[#242277] hover:bg-indigo-500 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#242277] mb-4">
+            <button
+              className="w-full py-2 px-4 bg-[#242277] hover:bg-indigo-500 text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#242277] mb-4"
+              onClick={handleLogin}
+            >
               Masuk
             </button>
             <a

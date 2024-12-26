@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import qrisImg from '../assets/qris.webp';
-import ewalletImg from '../assets/ewalet.webp';
-import bcaImg from '../assets/bca.webp';
-import mandiriImg from '../assets/mandiri.webp';
-import briImg from '../assets/bri.webp';
-import dkiImg from '../assets/bankdki.webp';
+import qrisImg from './assets/qris.webp';
+import ewalletImg from './assets/ewalet.webp';
+import bcaImg from './assets/bca.webp';
+import mandiriImg from './assets/mandiri.webp';
+import briImg from './assets/bri.webp';
+import dkiImg from './assets/bankdki.webp';
 
 function PaymentPage() {
   const [timeLeft, setTimeLeft] = useState(7200); // 2 jam dalam detik
