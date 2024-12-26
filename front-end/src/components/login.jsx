@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import gambarKiri from './assets/kiri butuh.png';
 
 export default function LoginPage({ onLogin }) {
   const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -29,7 +30,8 @@ export default function LoginPage({ onLogin }) {
         <div className="relative z-10 flex items-center justify-center w-[500px] h-[500px]">
           <div className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-md rounded-lg p-6">
             <h2 className="text-white text-2xl font-bold mt-4">Mulailah perjalanan Anda dengan TravelAble!</h2>
-            <img src="kiri butuh.png" alt="Gambar Orang" className="w-400 h-400 object-cover object-center " />
+            <img src={gambarKiri} alt="Gambar Orang" className="w-96 h-96 object-cover object-center" />
+            {/* <img src="./assets/kiri butuh.png" alt="Gambar Orang" className="w-400 h-400 object-cover object-center " /> */}
           </div>
         </div>
       </div>

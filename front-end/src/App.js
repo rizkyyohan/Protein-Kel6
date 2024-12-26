@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from './components/login.jsx'; // Pastikan huruf kapital
+import Login from './components/login.jsx'; 
 import Register from './components/register.jsx';
 import TentangKami from './page/user/tentang_kami.jsx';
 import Pemesanan from './page/user/pemesanan.jsx';
@@ -44,6 +44,7 @@ function App() {
           element={
              <div>
               <LandingPage/>
+              <Footer/>
              </div> 
           }
           />

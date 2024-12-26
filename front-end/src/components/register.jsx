@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, ChevronDown, Calendar } from 'lucide-react';
+import gambarKiri from './assets/kiri butuh.png';
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -167,7 +168,7 @@ export default function RegisterPage() {
         <div className="relative z-10 flex items-center justify-center w-[500px] h-[500px]">
           <div className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-md rounded-lg p-6">
             <h2 className="text-white text-2xl font-bold mt-4">Mulailah perjalanan Anda dengan TravelAble!</h2>
-            <img src="kiri butuh.png" alt="Gambar Orang" className="w-400 h-400 object-cover object-center " />
+            <img src={gambarKiri} alt="Gambar Orang" className="w-96 h-96 object-cover object-center" />
           </div>
         </div>
       </div>
