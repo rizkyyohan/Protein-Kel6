@@ -1,17 +1,20 @@
+// routes/logRoutes.js
+
 const express = require("express");
 const router = express.Router();
 const logController = require("../controllers/logController");
-const authMiddleware = require("../middleware/authMiddleware");
+const { body } = require('express-validator'); 
 
-// Middleware untuk otentikasi (opsional, jika Anda ingin membatasi akses)
-router.use(authMiddleware.verifyToken);
+// Validasi input
+const validateLogInput = [
+  body('userId').notEmpty().withMessage('UserId harus diisi'),
+  body('tipe').notEmpty().withMessage('Tipe harus diisi'),
+  // ... validasi field lainnya
+];
 
 // Route untuk membuat log baru
-router.post("/", logController.createLog, (req, res) => {
+router.post("/", validateLogInput, logController.createLog, (req, res) => {
   res.status(201).json({ message: "Log berhasil dibuat" });
 });
 
-// Route untuk mendapatkan semua log (hanya untuk admin)
-router.get("/", authMiddleware.verifyRole("admin"), logController.getAllLogs);
-
-module.exports = router;
+// ...
