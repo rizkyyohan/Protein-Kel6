@@ -20,7 +20,7 @@ function Header() {
           Dashboard
         </Link>
         <Link
-          to="/Chat"
+          to="/ChatP"
           className="text-[#242277] hover:text-purple-700 hover:bg-gray-200 px-4 py-2 rounded-full font-medium"
         >
           Chat Pelanggan

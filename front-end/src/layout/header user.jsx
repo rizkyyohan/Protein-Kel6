@@ -27,7 +27,7 @@ function Header() {
           Tentang Kami
         </Link>
         <Link
-          to="/pemandu"
+          to="/ListPemandu"
           className="text-[#FA9A0A] font-medium px-4 py-2 rounded-md transition-all duration-200 hover:bg-blue-500 hover:text-white"
         >
           Pemandu
@@ -44,7 +44,7 @@ function Header() {
       <div className="flex justify-center items-center">
         <button
           className="bg-transparent p-0 border-none focus:outline-none"
-          onClick={() => (window.location.href = '/chat')}
+          onClick={() => (window.location.href = '/chatU')}
         >
           <img src={chat} alt="Chat Icon" className="w-12 h-12" />
         </button>
