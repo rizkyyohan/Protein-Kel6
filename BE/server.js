@@ -33,7 +33,7 @@ const userRoutes = require("./routes/userRoutes");
 app.use("/api/users", userRoutes);
 
 const guideRoutes = require("./routes/guideRoutes");
-app.use("/api/guide", guideRoutes);
+app.use("/api/guides", guideRoutes);
 
 const pemesananRoutes = require("./routes/pemesananRoutes");
 app.use("/api/pemesanan", pemesananRoutes);
@@ -54,5 +54,5 @@ app.use("/api/rating", ratingRoutes);
 // Jalankan server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log('Server running on port ${PORT}');
 });
