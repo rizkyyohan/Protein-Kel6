@@ -9,7 +9,7 @@ const pemesananSchema = new mongoose.Schema({
   },
   pemandu: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Referensi ke model User (karena pemandu adalah user)
+    ref: "Guide", // Referensi ke model User (karena pemandu adalah user)
     required: true,
   },
   destinasi: {
