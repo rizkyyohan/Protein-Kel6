@@ -22,11 +22,24 @@ export default function LoginPage({ onLogin }) {
       console.log(data); // Tambahkan ini untuk melihat response
   
       if (response.ok) {
-        alert('Login berhasil');
+        // alert('Login berhasil');
         if (onLogin) {
           onLogin(); // Panggil fungsi dari prop
         }
-        window.location.href = '/tentang_kami'; // Redirect setelah login
+  
+        // Perulangan untuk memastikan redirect berhasil
+        let loginSuccess = true; // Flag untuk status login
+        let redirectCount = 0; // Hitungan percobaan redirect
+  
+        while (loginSuccess && redirectCount < 3) { // Batasi perulangan maksimal 3 kali
+          try {
+            window.location.href = '/DashboardUser'; // Halaman dashboard
+            break; // Hentikan perulangan jika redirect berhasil
+          } catch (err) {
+            console.error('Redirect gagal, mencoba lagi...', err);
+            redirectCount++;
+          }
+        }
       } else {
         alert(data.message || 'Login gagal, silakan coba lagi');
       }
