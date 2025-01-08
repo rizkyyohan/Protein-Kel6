@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import navigasi
 
 import Pemandu1 from "../user/assets/pemandu1.jpeg";
 import Pemandu2 from "./assets/pemandu2.jpeg";
@@ -17,6 +18,12 @@ const ListPemandu = () => {
   const [selectedLocation, setSelectedLocation] = useState("All");
   const [priceRange, setPriceRange] = useState("All");
   const [selectedGender, setSelectedGender] = useState("All");
+  const navigate = useNavigate(); // Inisialisasi navigasi
+
+  const handleGuideClick = (guide) => {
+    // Navigasi ke halaman pemesanan dengan data pemandu
+    navigate("/pemesanan", { state: { guide } });
+  };
 
   const guides = [
     { id: 1, name: "Rizky Yohan", location: "Bandung Barat", price: 250000, gender: "laki-laki", image: Pemandu1 },
@@ -49,7 +56,6 @@ const ListPemandu = () => {
         <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
           <h1 className="text-4xl font-bold sm:text-5xl">Temukan Pemandu Wisata Terbaik</h1>
           <p className="mt-4 max-w-2xl text-lg sm:text-xl">Jelajahi keindahan Bandung dan sekitarnya dengan pemandu profesional pilihan kami.</p>
-          <button className="mt-6 rounded-lg bg-orange-500 px-6 py-3 text-lg font-medium hover:bg-orange-600">Cari Pemandu</button>
         </div>
       </div>
 
@@ -90,7 +96,7 @@ const ListPemandu = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredGuides.map((guide) => (
-            <div key={guide.id} className="rounded-xl bg-white p-2 shadow-sm">
+            <div key={guide.id} className="rounded-xl bg-white p-2 shadow-sm transition-transform duration-200 hover:scale-105 hover:shadow-lg cursor-pointer" onClick={() => handleGuideClick(guide)}>
               <img src={guide.image} alt={guide.name} className="mb-3 h-48 w-full rounded-lg object-cover" />
               <div className="px-2 pb-2">
                 <h3 className="font-medium">{guide.name}</h3>

@@ -17,6 +17,22 @@ import JadwalPemandu from "./page/pemandu/jadwal pemandu.jsx";
 import ChatU from "./page/user/chatU.jsx";
 import ChatP from "./page/pemandu/chatP.jsx";
 
+const UserLayout = ({ children }) => (
+  <div>
+    <HeaderUser />
+    {children}
+    <Footer />
+  </div>
+);
+
+const PemanduLayout = ({ children }) => (
+  <div>
+    <HeaderPemandu />
+    {children}
+    <Footer />
+  </div>
+);
+
 function App() {
   return (
     <Router>
@@ -25,122 +41,88 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          {/* User Pages */}
           <Route
             path="/tentangkami"
             element={
-              <div>
-                <HeaderUser />
+              <UserLayout>
                 <TentangKami />
-                <Footer />
-              </div>
+              </UserLayout>
             }
           />
           <Route
             path="/pemesanan"
             element={
-              <div>
-                <HeaderUser />
+              <UserLayout>
                 <Pemesanan />
-                <Footer />
-              </div>
+              </UserLayout>
             }
           />
-
           <Route
-            path="/ListPemandu"
+            path="/listpemandu"
             element={
-              <div>
-                <HeaderUser />
+              <UserLayout>
                 <ListPemandu />
-                <Footer />
-              </div>
+              </UserLayout>
             }
           />
-
           <Route
-            path="/ChatU"
+            path="/chatU"
             element={
-              <div>
-                <HeaderUser />
+              <UserLayout>
                 <ChatU />
-                <Footer />
-              </div>
+              </UserLayout>
             }
           />
-
           <Route
-            path="/ChatP"
+            path="/dashboarduser"
             element={
-              <div>
-                <HeaderPemandu />
-                <ChatP />
-                <Footer />
-              </div>
-            }
-          />
-
-          <Route
-            path="/LandingPage"
-            element={
-              <div>
-                <LandingPage />
-                <Footer />
-              </div>
-            }
-          />
-
-          <Route
-            path="/DashboardPemandu"
-            element={
-              <div>
-                <HeaderPemandu />
-                <DashboardPemandu />
-                <Footer />
-              </div>
-            }
-          />
-
-          <Route
-            path="/DashboardUser"
-            element={
-              <div>
-                <HeaderUser />
+              <UserLayout>
                 <DashboardUser />
-                <Footer />
-              </div>
+              </UserLayout>
             }
           />
-
           <Route
             path="/destinasi"
             element={
-              <div>
-                <HeaderUser />
+              <UserLayout>
                 <Destinasi />
-                <Footer />
-              </div>
+              </UserLayout>
             }
           />
-
           <Route
             path="/pembayaran"
             element={
-              <div>
-                <HeaderUser />
+              <UserLayout>
                 <Pembayaran />
-                <Footer />
-              </div>
+              </UserLayout>
             }
           />
 
+          {/* Pemandu Pages */}
+          <Route
+            path="/chatP"
+            element={
+              <PemanduLayout>
+                <ChatP />
+              </PemanduLayout>
+            }
+          />
+          <Route
+            path="/dashboardpemandu"
+            element={
+              <PemanduLayout>
+                <DashboardPemandu />
+              </PemanduLayout>
+            }
+          />
           <Route
             path="/jadwalpemandu"
             element={
-              <div>
-                <HeaderPemandu />
+              <PemanduLayout>
                 <JadwalPemandu />
-                <Footer />
-              </div>
+              </PemanduLayout>
             }
           />
         </Routes>
