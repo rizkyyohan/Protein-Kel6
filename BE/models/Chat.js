@@ -9,7 +9,7 @@ const ChatSchema = new mongoose.Schema({
     type: String, // ID lawan chat (Guide atau User)
     required: true,
   },
-  message: {
+  isi_chat: {
     type: String,
     required: true,
   },

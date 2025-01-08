@@ -10,7 +10,7 @@ const jadwalSchema = new mongoose.Schema(
     },
     pemandu: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // Referensi ke model User (karena pemandu adalah user)
+      ref: "pemandu", // Referensi ke model User (karena pemandu adalah user)
       required: [true, "Guide ID is required"],
     },
     tanggal: {

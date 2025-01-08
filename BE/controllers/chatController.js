@@ -4,7 +4,7 @@ const Chat = require("../models/Chat");
 exports.getAllChats = async (req, res) => {
   try {
     const chats = await Chat.find().populate(
-      "id_pemandu id_pengguna",
+      "senderId receiverId",
       "nama profile_picture"
     );
     res.status(200).json(chats);
@@ -18,7 +18,7 @@ exports.getChatById = async (req, res) => {
   try {
     const { id } = req.params;
     const chat = await Chat.findById(id).populate(
-      "id_pemandu id_pengguna",
+      "senderId receiverId",
       "nama profile_picture"
     );
     if (!chat) {
@@ -33,18 +33,18 @@ exports.getChatById = async (req, res) => {
 // Membuat chat baru
 exports.createChat = async (req, res) => {
   try {
-    const { id_pemandu, id_pengguna, profile_picture, isi_chat } = req.body;
+    const { senderId, receiverId, profile_picture, isi_chat } = req.body;
 
     // Validasi input
-    if (!id_pemandu || !id_pengguna || !isi_chat) {
+    if (!senderId || !receiverId || !isi_chat) {
       return res
         .status(400)
         .json({ message: "Harap isi semua field yang diperlukan" });
     }
 
     const newChat = new Chat({
-      id_pemandu,
-      id_pengguna,
+      senderId,
+      receiverId,
       profile_picture,
       isi_chat,
     });

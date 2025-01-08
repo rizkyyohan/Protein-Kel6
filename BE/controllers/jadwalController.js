@@ -12,19 +12,19 @@ exports.addJadwal = async (req, res) => {
     });
 
     await newJadwal.save();
-    res.status(201).json({ message: "Jadwal added successfully", jadwal: newJadwal });
+    res.status(201).json({ message: "Jadwal berhasil ditambahkan", jadwal: newJadwal });
   } catch (error) {
-    res.status(400).json({ message: "Error adding jadwal", error });
+    res.status(400).json({ message: "Gagal menambahkan jadwal", error });
   }
 };
 
 // Mengambil semua Jadwal
 exports.getAllJadwal = async (req, res) => {
   try {
-    const jadwals = await Jadwal.find();
+    const jadwals = await Jadwal.find().populate("penawaran pemandu", "nama email");
     res.status(200).json(jadwals);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching jadwals", error });
+    res.status(500).json({ message: "Gagal mengambil jadwal", error });
   }
 };
 
@@ -33,13 +33,15 @@ exports.getJadwalById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const jadwal = await Jadwal.findById(id);
+    const jadwal = await Jadwal.findById(id).populate("penawaran pemandu", "nama email");
+
     if (!jadwal) {
-      return res.status(404).json({ message: "Jadwal not found" });
+      return res.status(404).json({ message: "Jadwal tidak ditemukan" });
     }
+
     res.status(200).json(jadwal);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching jadwal", error });
+    res.status(500).json({ message: "Gagal mengambil jadwal", error });
   }
 };
 
@@ -56,12 +58,12 @@ exports.updateJadwal = async (req, res) => {
     );
 
     if (!updatedJadwal) {
-      return res.status(404).json({ message: "Jadwal not found" });
+      return res.status(404).json({ message: "Jadwal tidak ditemukan" });
     }
 
-    res.status(200).json({ message: "Jadwal updated successfully", jadwal: updatedJadwal });
+    res.status(200).json({ message: "Jadwal berhasil diperbarui", jadwal: updatedJadwal });
   } catch (error) {
-    res.status(400).json({ message: "Error updating jadwal", error });
+    res.status(400).json({ message: "Gagal memperbarui jadwal", error });
   }
 };
 
@@ -73,11 +75,11 @@ exports.deleteJadwal = async (req, res) => {
     const deletedJadwal = await Jadwal.findByIdAndDelete(id);
 
     if (!deletedJadwal) {
-      return res.status(404).json({ message: "Jadwal not found" });
+      return res.status(404).json({ message: "Jadwal tidak ditemukan" });
     }
 
-    res.status(200).json({ message: "Jadwal deleted successfully" });
+    res.status(200).json({ message: "Jadwal berhasil dihapus" });
   } catch (error) {
-    res.status(400).json({ message: "Error deleting jadwal", error });
+    res.status(400).json({ message: "Gagal menghapus jadwal", error });
   }
 };
