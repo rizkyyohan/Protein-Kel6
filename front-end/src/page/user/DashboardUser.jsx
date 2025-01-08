@@ -47,7 +47,9 @@ const DashboardUser = () => {
           <p className="text-gray-600 mb-6">
             Kami selalu membuat pelanggan kami nyaman dengan menyediakan sebanyak mungkin pilihan ramah disabilitas.
           </p>
-          <button className="px-8 py-2.5 bg-[#1D1B4B] text-white rounded-md hover:bg-[#0f0e3b] transition">
+          <button className="px-8 py-2.5 bg-[#1D1B4B] text-white rounded-md hover:bg-[#0f0e3b] transition"
+          onClick={() => (window.location.href = "/tentangkami")}
+          >
             Eksplor
           </button>
         </div>

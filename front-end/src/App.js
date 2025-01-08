@@ -16,6 +16,14 @@ import DashboardPemandu from "./page/pemandu/DashboardPemandu.jsx";
 import JadwalPemandu from "./page/pemandu/jadwal pemandu.jsx";
 import ChatU from "./page/user/chatU.jsx";
 import ChatP from "./page/pemandu/chatP.jsx";
+import Tawaran from "./page/pemandu/tawaran.jsx";
+
+const LandingLayout = ({ children }) => (
+  <div>
+    {children}
+    <Footer />
+  </div>
+);
 
 const UserLayout = ({ children }) => (
   <div>
@@ -38,7 +46,15 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          {/* Landing Page */}
+          <Route
+            path="/"
+            element={
+              <LandingLayout>
+                <LandingPage />
+              </LandingLayout>
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
@@ -114,6 +130,14 @@ function App() {
             element={
               <PemanduLayout>
                 <DashboardPemandu />
+              </PemanduLayout>
+            }
+          />
+          <Route
+            path="/tawaran"
+            element={
+              <PemanduLayout>
+                <Tawaran />
               </PemanduLayout>
             }
           />

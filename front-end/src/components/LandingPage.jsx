@@ -8,6 +8,7 @@ import G4 from "../components/assets/FarmHouse.png";
 import G5 from "../components/assets/KebunBinatang.png";
 import G6 from "../components/assets/Saung.png";
 import G7 from "../components/assets/trans.jpeg";
+import logo from "../assets/logo.png";
 
 const TravelableLanding = () => {
   const navigate = useNavigate(); // Hook untuk navigasi
@@ -48,10 +49,10 @@ const TravelableLanding = () => {
     <div className="min-h-screen bg-[#FFFAF4]">
       {/* Header */}
       <header className="bg-white py-4 px-6 flex justify-between items-center shadow-md">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-orange-500 rounded-full"></div>
-          <span className="text-xl font-bold text-[#2B2A4C]">TravelAble</span>
-        </div>
+      <div className="flex items-center space-x-2">
+        <img src={logo} alt="TravelAble Logo" className="h-10" />
+        <span className="text-xl font-bold text-purple-700">TravelAble</span>
+      </div>
         <button onClick={() => navigate("/login")} className="bg-[#0047FF] text-white px-4 py-2 rounded-lg shadow-md">
           Masuk
         </button>
@@ -91,7 +92,9 @@ const TravelableLanding = () => {
       <section className="container mx-auto px-6 py-12">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl font-bold text-[#FF7C57]">TravelAble Blog</h2>
-          <button className="text-[#FF7C57] flex items-center font-medium">
+          <button className="text-[#FF7C57] flex items-center font-medium"
+          onClick={() => (window.location.href = "/login")}
+          >
             Selengkapnya
             <ChevronRight className="w-4 h-4 ml-1" />
           </button>
@@ -153,37 +156,6 @@ const TravelableLanding = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#2B2A4C] text-white py-6">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div>
-              <h4 className="font-bold mb-2 text-white">Tentang TravelAble</h4>
-              <p className="text-sm text-[#B6B6D2]">Platform yang memberikan solusi perjalanan aksesibel untuk semua.</p>
-            </div>
-            <div>
-              <h4 className="font-bold mb-2 text-white">Panduan</h4>
-              <ul className="text-sm text-[#B6B6D2] space-y-1">
-                <li>Panduan Pengguna</li>
-                <li>FAQ</li>
-                <li>Kontak</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-2 text-white">Kontak</h4>
-              <p className="text-sm text-[#B6B6D2]">info@travelable.com</p>
-              <p className="text-sm text-[#B6B6D2]">+62 812 3456 7890</p>
-            </div>
-            <div>
-              <h4 className="font-bold mb-2 text-white">Ikuti Kami</h4>
-              <div className="flex space-x-4">
-                <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
-                <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
-                <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

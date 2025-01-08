@@ -26,7 +26,7 @@ function Header() {
           Chat Pelanggan
         </Link>
         <Link
-          to="/Penawaran"
+          to="/tawaran"
           className="text-[#242277] hover:text-purple-700 hover:bg-gray-200 px-4 py-2 rounded-full font-medium"
         >
           Penawaran Tersedia
