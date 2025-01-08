@@ -7,10 +7,10 @@ const authMiddleware = require("../middleware/authMiddleware");
 router.use(authMiddleware.verifyToken);
 
 // Rute untuk Jadwal
-// Hanya admin dan pemandu yang boleh menambah, mengupdate, dan menghapus jadwal
-router.post("/", authMiddleware.verifyRole(['admin', 'pemandu']), jadwalController.addJadwal); 
-router.put("/:id", authMiddleware.verifyRole(['admin', 'pemandu']), jadwalController.updateJadwal);
-router.delete("/:id", authMiddleware.verifyRole(['admin', 'pemandu']), jadwalController.deleteJadwal);
+// Hanya  pemandu yang boleh menambah, mengupdate, dan menghapus jadwal
+router.post("/", authMiddleware.verifyRole([ 'pemandu']), jadwalController.addJadwal); 
+router.put("/:id", authMiddleware.verifyRole([ 'pemandu']), jadwalController.updateJadwal);
+router.delete("/:id", authMiddleware.verifyRole([ 'pemandu']), jadwalController.deleteJadwal);
 
 // Semua user boleh melihat jadwal
 router.get("/", jadwalController.getAllJadwal);

@@ -1,4 +1,3 @@
-// models/Pemesanan.js
 const mongoose = require("mongoose");
 
 const pemesananSchema = new mongoose.Schema({
@@ -9,7 +8,7 @@ const pemesananSchema = new mongoose.Schema({
   },
   pemandu: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Guide", // Referensi ke model User (karena pemandu adalah user)
+    ref: "Guide",
     required: true,
   },
   destinasi: {
@@ -17,10 +16,10 @@ const pemesananSchema = new mongoose.Schema({
     ref: "Destination",
     required: true,
   },
-  // alamat: {  // Alamat bisa diakses dari model User
-  //   type: String,
-  //   required: true,
-  // },
+  alamat: {
+    type: String,
+    required: true,
+  },
   tanggal_pemesanan: {
     type: Date,
     default: Date.now,
@@ -40,6 +39,10 @@ const pemesananSchema = new mongoose.Schema({
   },
 });
 
-const Pemesanan = mongoose.model("Pemesanan", pemesananSchema);
+pemesananSchema.pre("save", function (next) {
+  this.updated_at = Date.now();
+  next();
+});
 
+const Pemesanan = mongoose.model("Pemesanan", pemesananSchema);
 module.exports = Pemesanan;

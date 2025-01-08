@@ -10,7 +10,13 @@ router.use(authMiddleware.verifyToken);
 // Rute untuk membuat pemesanan baru
 router.post("/", pemesananController.createPemesanan); 
 
-// ... tambahkan rute lain untuk mendapatkan, mengupdate, 
-//     atau menghapus pemesanan jika diperlukan
+// routes/pemesananRoutes.js
+
+// Rute untuk mendapatkan semua pemesanan
+router.get("/", pemesananController.getAllPemesanan);
+
+// Rute untuk mendapatkan pemesanan berdasarkan ID
+router.get("/:id", pemesananController.getPemesananById);
+
 
 module.exports = router;

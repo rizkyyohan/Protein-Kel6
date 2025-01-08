@@ -3,13 +3,22 @@ const router = express.Router();
 const guideController = require("../controllers/guideController");
 const authMiddleware = require("../middleware/authMiddleware");
 
-// Create a new guide (Hanya customer yang dapat membuat guide)
+// Get all guides
+router.get("/guides", guideController.getAllGuides);
+
+// Get a guide by ID
+router.get("/guides/:id", guideController.getGuideById);
+
+// Create a new guide
+// Hanya admin yang boleh membuat guide baru
 router.post("/guides", authMiddleware.verifyToken, authMiddleware.verifyRole('customer'), guideController.createGuide); 
 
-// Rute lainnya
-router.get("/guides", guideController.getAllGuides);
-router.get("/guides/:id", guideController.getGuideById);
+// Update a guide
+// Hanya admin yang boleh mengupdate guide
 router.put("/guides/:id", authMiddleware.verifyToken, authMiddleware.verifyRole('customer'), guideController.updateGuide);
-router.delete("/guides/:id", authMiddleware.verifyToken, authMiddleware.verifyRole('customer'), guideController.deleteGuide);
+
+// Delete a guide
+// Hanya admin yang boleh menghapus guide
+router.delete("/guides/:id", authMiddleware.verifyToken, authMiddleware.verifyRole('customer'),  guideController.deleteGuide); 
 
 module.exports = router;

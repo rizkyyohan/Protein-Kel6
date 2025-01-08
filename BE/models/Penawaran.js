@@ -8,7 +8,7 @@ const penawaranSchema = new mongoose.Schema({
   },
   pemandu: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Referensi ke model User (karena pemandu adalah user)
+    ref: "User", // Pastikan pemandu adalah user
     required: true,
   },
   status_penawaran: {
@@ -16,7 +16,7 @@ const penawaranSchema = new mongoose.Schema({
     enum: ["Pending", "Accepted", "Rejected"],
     default: "Pending",
   },
-  tanggal: { // Tanggal penawaran dibuat
+  tanggal: {
     type: Date,
     default: Date.now,
   },
@@ -30,6 +30,10 @@ const penawaranSchema = new mongoose.Schema({
   },
 });
 
-const Penawaran = mongoose.model("Penawaran", penawaranSchema);
+penawaranSchema.pre("save", function (next) {
+  this.updated_at = Date.now();
+  next();
+});
 
+const Penawaran = mongoose.model("Penawaran", penawaranSchema);
 module.exports = Penawaran;

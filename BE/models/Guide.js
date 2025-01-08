@@ -1,30 +1,31 @@
 const mongoose = require("mongoose");
 
 const guideSchema = new mongoose.Schema({
-  user: {
+  customer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",  // Menggunakan model User untuk referensi user
+    ref: "customer", // Referensi ke model customer
+    required: true,
+  },
+  pemandu: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "pemandu", // Referensi ke model pemandu
     required: true,
   },
   pengalaman: {
     type: Number,
     required: true,
-    min: 0,  // Memastikan pengalaman tidak negatif
+    min: 0,
   },
-  kebiasaan: {
-    type: String,
-  },
+  kebiasaan: String,
   gender: {
     type: String,
     enum: ["Male", "Female"],
   },
-  alamat: {
-    type: String,
-  },
+  alamat: String,
   harga: {
     type: Number,
     required: true,
-    min: 0,  // Memastikan harga tidak negatif
+    min: 0,
   },
   status_aktif: {
     type: Boolean,

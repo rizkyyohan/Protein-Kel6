@@ -26,27 +26,23 @@ exports.getGuideById = async (req, res) => {
 
 // Create a new guide
 exports.createGuide = async (req, res) => {
-  const { user, pengalaman, kebiasaan, gender, alamat, harga, status_aktif } = req.body;
+  const { customer, pemandu, pengalaman, kebiasaan, gender, alamat, harga, status_aktif } = req.body;
 
   try {
-    // Pastikan user ID valid dan ada dalam database
-    if (!user) {
-      return res.status(400).json({ message: "User ID is required." });
+    if (!customer || !pemandu) {
+      return res.status(400).json({ message: "Customer ID and Pemandu ID are required." });
     }
 
-    // Memastikan user yang diberikan adalah ObjectId yang valid
-    if (!mongoose.Types.ObjectId.isValid(user)) {
-      return res.status(400).json({ message: "Invalid User ID format." });
+    // Validasi customer dan pemandu
+    const foundCustomer = await User.findById(customer);
+    const foundPemandu = await User.findById(pemandu);
+    if (!foundCustomer || !foundPemandu) {
+      return res.status(400).json({ message: "Invalid Customer ID or Pemandu ID." });
     }
 
-    const foundUser = await User.findById(user);
-    if (!foundUser) {
-      return res.status(400).json({ message: "User with the provided ID does not exist." });
-    }
-
-    // Membuat guide baru
     const newGuide = new Guide({
-      user,  // Pastikan ID user dimasukkan
+      customer,
+      pemandu,
       pengalaman,
       kebiasaan,
       gender,
@@ -55,7 +51,6 @@ exports.createGuide = async (req, res) => {
       status_aktif,
     });
 
-    // Menyimpan guide baru
     await newGuide.save();
     res.status(201).json(newGuide);
   } catch (error) {
@@ -63,6 +58,7 @@ exports.createGuide = async (req, res) => {
     res.status(500).json({ message: "Error creating guide", error });
   }
 };
+
 
 // Update a guide
 exports.updateGuide = async (req, res) => {
