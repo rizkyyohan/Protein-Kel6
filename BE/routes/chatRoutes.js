@@ -10,12 +10,12 @@ router.use(authMiddleware.verifyToken);
 router.get("/", chatController.getAllChats);
 
 // Route untuk mendapatkan chat berdasarkan ID
-router.get("/:id", chatController.getChatById);
+router.get("/:Id", chatController.getChatById);
 
 // Route untuk membuat chat baru
 router.post("/", chatController.createChat);
 
 // Route untuk menghapus chat berdasarkan ID
-router.delete("/:id", chatController.deleteChat);
+router.delete("/:Id", chatController.deleteChat);
 
 module.exports = router;

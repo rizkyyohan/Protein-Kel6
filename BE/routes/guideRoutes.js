@@ -12,14 +12,14 @@ router.get("/guides/:id", guideController.getGuideById);
 
 // Create a new guide
 // Hanya admin yang boleh membuat guide baru
-router.post("/guides", authMiddleware.verifyToken, authMiddleware.verifyRole('admin'), guideController.createGuide); 
+router.post("/guides", authMiddleware.verifyToken, authMiddleware.verifyRole('customer'), guideController.createGuide); 
 
 // Update a guide
 // Hanya admin yang boleh mengupdate guide
-router.put("/guides/:id", authMiddleware.verifyToken, authMiddleware.verifyRole('admin'), guideController.updateGuide);
+router.put("/guides/:id", authMiddleware.verifyToken, authMiddleware.verifyRole('customer'), guideController.updateGuide);
 
 // Delete a guide
-// Hanya admin yang boleh menghapus guide
-router.delete("/guides/:id", authMiddleware.verifyToken, authMiddleware.verifyRole('admin'),  guideController.deleteGuide); 
+// Hanya customer yang boleh menghapus guide
+router.delete("/guides/:id", authMiddleware.verifyToken, authMiddleware.verifyRole('customer'),  guideController.deleteGuide); 
 
 module.exports = router;

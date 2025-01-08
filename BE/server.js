@@ -49,6 +49,8 @@ app.use("/api/jadwal", jadwalRoutes);
 const ratingRoutes = require("./routes/ratingRoutes");
 app.use("/api/rating", ratingRoutes);
 
+
+
 // Jalankan server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
