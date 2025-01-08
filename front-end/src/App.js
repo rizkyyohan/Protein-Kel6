@@ -6,11 +6,13 @@ import TentangKami from "./page/user/tentang_kami.jsx";
 import Pemesanan from "./page/user/pemesanan.jsx";
 import Pembayaran from "./page/user/pembayaran.jsx";
 import HeaderUser from "./layout/header user.jsx";
+import HeaderPemandu from "./layout/header pemandu.jsx";
 import Footer from "./layout/footer.jsx";
 import LandingPage from "./components/LandingPage.jsx";
 import DashboardUser from "./page/user/DashboardUser.jsx";
-import DashboardPemandu from "./page/pemandu/DashboardPemandu.jsx";
 import Destinasi from "./page/user/destinasi.jsx";
+import DashboardPemandu from "./page/pemandu/DashboardPemandu.jsx";
+import JadwalPemandu from "./page/pemandu/jadwal pemandu.jsx";
 
 function App() {
   return (
@@ -55,7 +57,7 @@ function App() {
             path="/DashboardPemandu"
             element={
               <div>
-                <HeaderUser />
+                <HeaderPemandu />
                 <DashboardPemandu />
                 <Footer />
               </div>
@@ -90,6 +92,17 @@ function App() {
               <div>
                 <HeaderUser />
                 <Pembayaran />
+                <Footer />
+              </div>
+            }
+          />
+
+          <Route
+            path="/jadwalpemandu"
+            element={
+              <div>
+                <HeaderPemandu />
+                <JadwalPemandu />
                 <Footer />
               </div>
             }

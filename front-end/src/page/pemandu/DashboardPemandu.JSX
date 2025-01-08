@@ -1,116 +1,155 @@
-// DashboardPemandu.js
-import React, { useState } from 'react';
+import React from 'react';
+import { MessageCircle, User } from 'lucide-react';
+import TransStudio from "./assets/trans studio.jpeg";
+import TamanHutan from "./assets/taman hutan.jpeg";
+import TamanLembah from "./assets/taman lembah.jpeg";
+import Pilat from "./assets/gambar 1.jpeg";
+// import IconPemandu from "./assets/Ellipse 42.svg"; // Gambar untuk Pemandu Disabilitas
+// import IconRekomendasi from "./assets/image 120.svg"; // Gambar untuk Rekomendasi Wisata
+import MainImage from "./assets/gambar berkebutuhan.svg"; // Gambar utama untuk Petualangan Baru
 
-const DashboardPemandu = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+
+const DashboardUser = () => {
   const destinations = [
-    "Trans Studio Bandung",
-    "Farm House Lembang",
-    "Dusun Bambu Leisure Park",
-    "Orchid Forest Cikole",
-    "Saung Angklung Udjo",
-    "Tangkuban Perahu",
-    "Kawah Putih",
-    "Ranca Upas",
-    "Museum Geologi Bandung",
-    "Alun-Alun Kota Bandung",
-    "Gedung Sate",
-    "Cihampelas Walk"
+    {
+      id: 1,
+      name: 'Trans Studio Bandung',
+      location: 'Kota Bandung',
+      image: TransStudio,
+    },
+    {
+      id: 2,
+      name: 'Taman Lembah Dewata',
+      location: 'Kab. Bandung Barat',
+      image: TamanLembah,
+    },
+    {
+      id: 3,
+      name: 'Taman Hutan Raya',
+      location: 'Kab. Bandung',
+      image: TamanHutan,
+    },
   ];
 
-  const ITEMS_PER_PAGE = 3;
-  const totalPages = Math.ceil(destinations.length / ITEMS_PER_PAGE);
-
-  const handleNext = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalPages);
-  };
-
-  const handlePrev = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalPages) % totalPages);
-  };
-
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="min-h-screen bg-[#FFFAF2] flex flex-col">
+      {/* Hero Section */}
+      <div className="px-16 py-16 flex flex-wrap items-center relative">
+        {/* Bagian Teks Selamat Datang */}
+        <div className="w-full lg:w-1/2 pr-8">
+          <h1 className="text-5xl font-bold leading-tight mb-4">
+            <span className="text-[#242277]">Selamat </span>
+            <span className="text-[#FA9A0A]">datang di </span>
+            <span className="text-[#FA9A0A]">website </span>
+            <span className="text-[#242277]">kami</span>
+          </h1>
+          <p className="text-gray-600 mb-6">
+            Kami selalu membuat pelanggan kami nyaman dengan menyediakan sebanyak mungkin pilihan ramah disabilitas.
+          </p>
+          <button className="px-8 py-2.5 bg-[#1D1B4B] text-white rounded-md hover:bg-[#0f0e3b] transition">
+            Eksplor
+          </button>
+        </div>
 
-      {/* Main Content */}
-      <main className="px-8 py-6">
-        {/* Welcome Section */}
-        <section className="bg-white shadow-md rounded-lg p-6 mb-6">
-          <div className="flex items-center justify-between">
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold text-indigo-600">Selamat datang di website kami</h2>
-              <p className="text-gray-600 mt-2">Kelola jadwal Anda, pantau pesanan, dan berikan pengalaman terbaik untuk para pengguna disabilitas.</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <img
-                src="./src/assets/Group 12460.png"
-                alt="Welcome Image"
-                className="w-40 h-40 object-cover rounded-lg shadow-md"
+        {/* Bagian Gambar Utama */}
+        <div className="w-full lg:w-1/2 flex justify-center items-center">
+          <img 
+            src={Pilat} 
+            alt="Destinasi Utama" 
+            className="w-[500px] h-auto rounded-lg shadow-md object-cover"
+          />
+        </div>
+      </div>
+
+     
+      {/* Destinasi Section */}
+      <div className="px-16 py-12">
+        <h2 className="text-xl font-bold text-[#242277] uppercase mb-2">Top Destinasi</h2>
+        <h3 className="text-3xl font-bold text-[#FA9A0A] mb-8">Eksplor top destinasi</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {destinations.map((destination) => (
+            <div key={destination.id} className="bg-white p-4 rounded-lg shadow-md">
+              <img 
+                src={destination.image} 
+                alt={destination.name} 
+                className="w-full h-40 object-cover rounded-md mb-4"
               />
-              <button className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Eksplor</button>
+              <h4 className="font-bold text-lg mb-2 text-[#1D1B4B]">{destination.name}</h4>
+              <p className="text-sm text-gray-600 mb-1">{destination.location}</p>
             </div>
-          </div>
-        </section>
+          ))}
+        </div>
+      </div>
 
-        {/* Top Destinations */}
-        <section className="mb-6">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">Top Destinasi</h3>
-          <div className="relative">
-            <button
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700"
-              onClick={handlePrev}
-            >
-              &#8592;
-            </button>
-            <div className="overflow-hidden">
-              <div className="grid grid-cols-3 gap-4">
-                {destinations
-                  .slice(currentSlide * ITEMS_PER_PAGE, currentSlide * ITEMS_PER_PAGE + ITEMS_PER_PAGE)
-                  .map((destinasi, index) => (
-                    <div key={index} className="bg-white shadow-md rounded-lg overflow-hidden">
-                      <img
-                        src={`/images/destinasi-${(currentSlide * ITEMS_PER_PAGE + index + 1)}.jpg`}
-                        alt={destinasi}
-                        className="w-full h-48 object-cover"
-                      />
-                      <div className="p-4">
-                        <h4 className="text-lg font-bold text-gray-800">{destinasi}</h4>
-                        <p className="text-gray-600 mt-2">Kota Bandung</p>
-                        <p className="text-indigo-600 font-semibold mt-2">Rp 20.000 - Rp 50.000</p>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-            <button
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700"
-              onClick={handleNext}
-            >
-              &#8594;
-            </button>
-          </div>
-        </section>
+{/* Petualangan Baru Section */}
+<div className="px-16 py-12 bg-[#FFFAF2] flex flex-col lg:flex-row gap-12">
+  {/* Bagian Kiri - Teks */}
+  <div className="w-full lg:w-1/2">
+    <h2 className="text-3xl font-bold text-[#242277]">Mencoba</h2>
+    <h3 className="text-4xl font-bold text-[#FA9A0A] mb-4">
+      Petualangan baru sebagai Pemandu
+    </h3>
+    <p className="text-gray-600 mb-8 leading-relaxed">
+      Kami mendukung pemandu profesional untuk memberikan pengalaman 
+      terbaik kepada para pengguna. berikut adalah layanan dan manfaat yang
+      kami sediakan bagi anda sebagai pemandu.
+    </p>
 
-        {/* Guide Opportunity Section */}
-        <section className="bg-white shadow-md rounded-lg p-6">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">Mencoba Petualangan Baru sebagai Pemandu</h3>
-          <div className="flex flex-col md:flex-row gap-4 items-center">
-            <div className="md:w-1/2">
-              <img src="/images/guide-opportunity.jpg" alt="Guide Opportunity" className="rounded-lg shadow-md w-full" />
-            </div>
-            <div className="md:w-1/2">
-              <ul className="list-disc list-inside text-gray-600 space-y-2">
-                <li>Kesempatan dalam meningkatkan tugas sesuai kebutuhan pelanggan.</li>
-                <li>Peluang penghasilan yang kompetitif.</li>
-                <li>Kenyamanan dalam manajemen pesanan melalui platform ini.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      </main>
+    {/* List Keunggulan */}
+    <ul className="space-y-4">
+      <li className="flex items-start gap-4">
+        <div className="w-6 h-6 bg-[#FA9A0A] rounded-full mt-1"></div>
+        <div>
+          <h4 className="text-lg font-bold text-[#242277]">
+            Keamanan dalam menjalankan tugas
+          </h4>
+          <p className="text-gray-600">
+            Kami mendukung anda dengan platform yang membantu mengelola Pemesanan
+            dan komunikasi langsung dengan pengguna, sehingga anda dapat fokus 
+            memberikan layanan terbaik
+          </p>
+        </div>
+      </li>
+      <li className="flex items-start gap-4">
+        <div className="w-6 h-6 bg-[#242277] rounded-full mt-1"></div>
+        <div>
+          <h4 className="text-lg font-bold text-[#242277]">
+            Peluang Penghasilan yang Kompetitif
+          </h4>
+          <p className="text-gray-600">
+            Kami menawarkan peluang penghasilan dari layanan pemandu wisata inklusif dengan
+            sistem adil dan trasnparan.
+          </p>
+        </div>
+      </li>
+      <li className="flex items-start gap-4">
+        <div className="w-6 h-6 bg-[#FA9A0A] rounded-full mt-1"></div>
+        <div>
+          <h4 className="text-lg font-bold text-[#242277]">
+            Kenyamanan Dalam Manajemen Pesanan
+          </h4>
+          <p className="text-gray-600">
+          Dengan sistem dashboard kami, Anda dapat dengan mudah mengelola jadwal,
+           menerima pesanan, dan berkomunikasi langsung dengan pengguna.
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  {/* Bagian Kanan - Gambar */}
+  <div className="w-full lg:w-1/2 relative">
+    <img
+      src={MainImage}
+      alt="Main"
+      className="w-full h-[400px] object-cover rounded-lg shadow-lg"
+    />
+
+  </div>
+</div>
 
     </div>
   );
 };
 
-export default DashboardPemandu;
+export default DashboardUser;

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Import Link dari react-router-dom
 import logo from "../assets/logo.png";
 
 function Header() {
@@ -12,20 +13,31 @@ function Header() {
 
       {/* Navigasi */}
       <nav className="flex space-x-6">
-            <a href="#dashboard" className="text-[##242277] hover:text-purple-700 hover:bg-gray-200 px-4 py-2 rounded-full font-medium">
-                Dashboard
-            </a>
-            <a href="#chat" className="text-[##242277] hover:text-purple-700 hover:bg-gray-200 px-4 py-2 rounded-full font-medium">
-                Chat Pelanggan
-            </a>
-            <a href="#offers" className="text-[##242277] hover:text-purple-700 hover:bg-gray-200 px-4 py-2 rounded-full font-medium">
-                Penawaran Tersedia
-            </a>
-            <a href="#schedule" className="text-[##242277] hover:text-purple-700 hover:bg-gray-200 px-4 py-2 rounded-full font-medium">
-                Jadwal Pemandu
-            </a>
-        </nav>
-
+        <Link
+          to="/DashboardPemandu"
+          className="text-[#242277] hover:text-purple-700 hover:bg-gray-200 px-4 py-2 rounded-full font-medium"
+        >
+          Dashboard
+        </Link>
+        <Link
+          to="/Chat"
+          className="text-[#242277] hover:text-purple-700 hover:bg-gray-200 px-4 py-2 rounded-full font-medium"
+        >
+          Chat Pelanggan
+        </Link>
+        <Link
+          to="/Penawaran"
+          className="text-[#242277] hover:text-purple-700 hover:bg-gray-200 px-4 py-2 rounded-full font-medium"
+        >
+          Penawaran Tersedia
+        </Link>
+        <Link
+          to="/JadwalPemandu"
+          className="text-[#242277] hover:text-purple-700 hover:bg-gray-200 px-4 py-2 rounded-full font-medium"
+        >
+          Jadwal Pemandu
+        </Link>
+      </nav>
 
       {/* Profil Pengguna */}
       <div className="flex items-center space-x-2">
