@@ -221,7 +221,9 @@ function BookingPage() {
           </div>
           {/* Button Lanjutkan Ke Pembayaran */}
           <div className="mt-4 flex justify-end">
-            <button className="bg-[#FA9A0A] text-white px-6 py-3 rounded-md hover:bg-[#e58907] shadow-md">Lanjutkan Ke Pembayaran</button>
+            <button className="bg-[#FA9A0A] text-white px-6 py-3 rounded-md hover:bg-[#e58907] shadow-md" onClick={() => (window.location.href = "/pembayaran")}>
+              Lanjutkan Ke Pembayaran
+            </button>
           </div>
         </div>
       </div>

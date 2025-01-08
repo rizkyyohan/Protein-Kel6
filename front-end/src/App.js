@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LandingPage from "./components/LandingPage.jsx";
 import Login from "./components/login.jsx";
 import Register from "./components/register.jsx";
 import TentangKami from "./page/user/tentang_kami.jsx";
@@ -9,7 +10,6 @@ import Pembayaran from "./page/user/pembayaran.jsx";
 import HeaderUser from "./layout/header user.jsx";
 import HeaderPemandu from "./layout/header pemandu.jsx";
 import Footer from "./layout/footer.jsx";
-import LandingPage from "./components/LandingPage.jsx";
 import DashboardUser from "./page/user/DashboardUser.jsx";
 import Destinasi from "./page/user/destinasi.jsx";
 import DashboardPemandu from "./page/pemandu/DashboardPemandu.jsx";
