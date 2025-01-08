@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import chat from "../assets/chat.png";
 
@@ -13,32 +14,33 @@ function Header() {
 
       {/* Navigasi */}
       <nav className="flex space-x-6">
-        <a
-          href="#home"
+        <Link
+          to="/DashboardUser"
           className="text-[#FA9A0A] font-medium px-4 py-2 rounded-md transition-all duration-200 hover:bg-blue-500 hover:text-white"
         >
           Home
-        </a>
-        <a
-          href="#about"
+        </Link>
+        <Link
+          to="/tentangkami"
           className="text-[#FA9A0A] font-medium px-4 py-2 rounded-md transition-all duration-200 hover:bg-blue-500 hover:text-white"
         >
           Tentang Kami
-        </a>
-        <a
-          href="#guides"
+        </Link>
+        <Link
+          to="/pemandu"
           className="text-[#FA9A0A] font-medium px-4 py-2 rounded-md transition-all duration-200 hover:bg-blue-500 hover:text-white"
         >
           Pemandu
-        </a>
-        <a
-          href="#recommendations"
+        </Link>
+        <Link
+          to="/destinasi"
           className="text-[#FA9A0A] font-medium px-4 py-2 rounded-md transition-all duration-200 hover:bg-blue-500 hover:text-white"
         >
           Rekomendasi Wisata
-        </a>
+        </Link>
       </nav>
 
+      {/* Tombol Chat */}
       <div className="flex justify-center items-center">
         <button
           className="bg-transparent p-0 border-none focus:outline-none"
@@ -47,7 +49,6 @@ function Header() {
           <img src={chat} alt="Chat Icon" className="w-12 h-12" />
         </button>
       </div>
-
 
       {/* Profil Pengguna */}
       <div className="flex items-center space-x-2">

@@ -180,7 +180,7 @@ const TravelableLanding = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#2B2A4C] text-white py-6">
+      {/* <footer className="bg-[#2B2A4C] text-white py-6">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div>
@@ -212,7 +212,7 @@ const TravelableLanding = () => {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 };

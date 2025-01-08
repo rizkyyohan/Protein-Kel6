@@ -1,197 +1,209 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { MessageCircle, User } from 'lucide-react';
+import TransStudio from "./assets/trans studio.jpeg";
+import TamanHutan from "./assets/taman hutan.jpeg";
+import TamanLembah from "./assets/taman lembah.jpeg";
+import Pilat from "./assets/gambar 1.jpeg";
+import IconPemandu from "./assets/Ellipse 42.svg"; // Gambar untuk Pemandu Disabilitas
+import IconRekomendasi from "./assets/image 120.svg"; // Gambar untuk Rekomendasi Wisata
+import MainImage from "./assets/bdg.svg"; // Gambar utama untuk Petualangan Baru
+import SmallImage1 from "./assets/g11.svg"; // Gambar kecil 1
+import SmallImage2 from "./assets/g22.svg"; // Gambar kecil 2
 
-const DashboardPengguna = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+const DashboardUser = () => {
   const destinations = [
-    "Trans Studio Bandung",
-    "Farm House Lembang",
-    "Dusun Bambu Leisure Park",
-    "Orchid Forest Cikole",
-    "Saung Angklung Udjo",
-    "Tangkuban Perahu",
-    "Kawah Putih",
-    "Ranca Upas",
-    "Museum Geologi Bandung",
-    "Alun-Alun Kota Bandung",
-    "Gedung Sate",
-    "Cihampelas Walk"
+    {
+      id: 1,
+      name: 'Trans Studio Bandung',
+      location: 'Kota Bandung',
+      image: TransStudio,
+    },
+    {
+      id: 2,
+      name: 'Taman Lembah Dewata',
+      location: 'Kab. Bandung Barat',
+      image: TamanLembah,
+    },
+    {
+      id: 3,
+      name: 'Taman Hutan Raya',
+      location: 'Kab. Bandung',
+      image: TamanHutan,
+    },
   ];
 
-  const ITEMS_PER_PAGE = 3;
-  const totalPages = Math.ceil(destinations.length / ITEMS_PER_PAGE);
-
-  const handleNext = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalPages);
-  };
-
-  const handlePrev = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalPages) % totalPages);
-  };
-
   return (
-    <div className="bg-gray-100 min-h-screen">
-      {/* Header */}
-      <header className="bg-white shadow-md py-4 px-8 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="TravelAble Logo" className="h-8" />
-          <h1 className="text-lg font-bold text-indigo-600">TravelAble</h1>
+    <div className="min-h-screen bg-[#FFFAF2] flex flex-col">
+      {/* Hero Section */}
+      <div className="px-16 py-16 flex flex-wrap items-center relative">
+        {/* Bagian Teks Selamat Datang */}
+        <div className="w-full lg:w-1/2 pr-8">
+          <h1 className="text-5xl font-bold leading-tight mb-4">
+            <span className="text-[#242277]">Selamat </span>
+            <span className="text-[#FA9A0A]">datang di </span>
+            <span className="text-[#FA9A0A]">website </span>
+            <span className="text-[#242277]">kami</span>
+          </h1>
+          <p className="text-gray-600 mb-6">
+            Kami selalu membuat pelanggan kami nyaman dengan menyediakan sebanyak mungkin pilihan ramah disabilitas.
+          </p>
+          <button className="px-8 py-2.5 bg-[#1D1B4B] text-white rounded-md hover:bg-[#0f0e3b] transition">
+            Eksplor
+          </button>
         </div>
-        <nav className="flex items-center gap-6">
-          <a href="#" className="text-gray-600 hover:text-indigo-600">Dashboard</a>
-          <a href="#" className="text-gray-600 hover:text-indigo-600">Chat Pelanggan</a>
-          <a href="#" className="text-gray-600 hover:text-indigo-600">Pemesanan Tersedia</a>
-          <a href="#" className="text-gray-600 hover:text-indigo-600">Jadwal Pemandu</a>
-          <div className="text-indigo-600 font-medium">Hi, PEMANDU</div>
-        </nav>
-      </header>
 
-      {/* Main Content */}
-      <main className="px-8 py-6">
-        {/* Welcome Section */}
-        <section className="bg-white shadow-md rounded-lg p-6 mb-6">
-          <div className="flex items-center justify-between">
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold text-indigo-600">Selamat datang di website kami</h2>
-              <p className="text-gray-600 mt-2">Kelola jadwal Anda, pantau pesanan, dan berikan pengalaman terbaik untuk para pengguna disabilitas.</p>
-            </div>
-            <div className="flex items-center gap-4">
+        {/* Bagian Gambar Utama */}
+        <div className="w-full lg:w-1/2 flex justify-center items-center">
+          <img 
+            src={Pilat} 
+            alt="Destinasi Utama" 
+            className="w-[500px] h-auto rounded-lg shadow-md object-cover"
+          />
+        </div>
+      </div>
+
+      <div className="px-16 py-12 flex items-start gap-12">
+        {/* Header Pelayanan */}
+        <div className="w-1/3">
+          <h2 className="text-xl font-bold text-[#242277] uppercase mb-2">Pelayanan</h2>
+          <h3 className="text-3xl font-bold text-[#FA9A0A] mb-8 leading-tight">
+            Top pelayanan terbaik kami untuk Anda
+          </h3>
+        </div>
+
+        {/* Kontainer Kartu Pelayanan */}
+        <div className="flex-1 grid grid-cols-2 gap-8">
+          {/* Kartu Pemandu Disabilitas */}
+          <div className="bg-white p-8 rounded-xl shadow-md">
+            <div className="mb-4 flex items-center justify-center">
               <img
-                src="./src/assets/Group 12460.png"
-                alt="Welcome Image"
-                className="w-40 h-40 object-cover rounded-lg shadow-md"
+                src={IconPemandu}
+                alt="Pemandu Disabilitas"
+                className="w-16 h-16"
               />
-              <button className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Eksplor</button>
             </div>
-          </div>
-        </section>
-
-        {/* Pelayanan Section */}
-      <section className="px-8 py-16 bg-white">
-        <h2 className="text-2xl font-bold text-orange-600">PELAYANAN</h2>
-        <p className="text-gray-700 mt-2">Top pelayanan terbaik kami untuk anda</p>
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="p-6 bg-gray-100 rounded-lg shadow">
-            <h3 className="text-xl font-semibold text-blue-600">Pemandu Disabilitas</h3>
-            <p className="text-gray-700 mt-2">
-              Pemandu yang akan menjaga penyandang disabilitas
+            <h4 className="text-lg font-bold mb-2 text-[#1D1B4B]">Pemandu Disabilitas</h4>
+            <p className="text-gray-500 text-sm">
+              Pemandu yang akan menjaga penyandang disabilitas.
             </p>
           </div>
-          <div className="p-6 bg-gray-100 rounded-lg shadow">
-            <h3 className="text-xl font-semibold text-blue-600">Rekomendasi Wisata</h3>
-            <p className="text-gray-700 mt-2">
-              Pengguna dapat melihat destinasi ramah disabilitas
+
+          {/* Kartu Rekomendasi Wisata */}
+          <div className="bg-white p-8 rounded-xl shadow-md">
+            <div className="mb-4 flex items-center justify-center">
+              <img
+                src={IconRekomendasi}
+                alt="Rekomendasi Wisata"
+                className="w-16 h-16"
+              />
+            </div>
+            <h4 className="text-lg font-bold mb-2 text-[#1D1B4B]">Rekomendasi Wisata</h4>
+            <p className="text-gray-500 text-sm">
+              Pengguna dapat melihat destinasi ramah disabilitas.
             </p>
           </div>
         </div>
-      </section>
+      </div>
 
-        {/* Top Destinations */}
-        <section className="mb-6">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">Top Destinasi</h3>
-          <div className="relative">
-            <button
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700"
-              onClick={handlePrev}
-            >
-              &#8592;
-            </button>
-            <div className="overflow-hidden">
-              <div className="grid grid-cols-3 gap-4">
-                {destinations
-                  .slice(currentSlide * ITEMS_PER_PAGE, currentSlide * ITEMS_PER_PAGE + ITEMS_PER_PAGE)
-                  .map((destinasi, index) => (
-                    <div key={index} className="bg-white shadow-md rounded-lg overflow-hidden">
-                      <img
-                        src={`/images/destinasi-${(currentSlide * ITEMS_PER_PAGE + index + 1)}.jpg`}
-                        alt={destinasi}
-                        className="w-full h-48 object-cover"
-                      />
-                      <div className="p-4">
-                        <h4 className="text-lg font-bold text-gray-800">{destinasi}</h4>
-                        <p className="text-gray-600 mt-2">Kota Bandung</p>
-                        <p className="text-indigo-600 font-semibold mt-2">Rp 20.000 - Rp 50.000</p>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-            <button
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-indigo-600 text-white p-2 rounded-full hover:bg-indigo-700"
-              onClick={handleNext}
-            >
-              &#8594;
-            </button>
-          </div>
-        </section>
-
-        {/* Guide Opportunity Section */}
-        <section className="bg-white shadow-md rounded-lg p-6">
-          <h3 className="text-xl font-bold text-gray-800 mb-4">Mencoba Petualangan Baru sebagai Pemandu</h3>
-          <div className="flex flex-col md:flex-row gap-4 items-center">
-            <div className="md:w-1/2">
-              <img src="/images/guide-opportunity.jpg" alt="Guide Opportunity" className="rounded-lg shadow-md w-full" />
-            </div>
-            <div className="md:w-1/2">
-              <ul className="list-disc list-inside text-gray-600 space-y-2">
-                <li>Kesempatan dalam meningkatkan tugas sesuai kebutuhan pelanggan.</li>
-                <li>Peluang penghasilan yang kompetitif.</li>
-                <li>Kenyamanan dalam manajemen pesanan melalui platform ini.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-indigo-600 text-white py-6 px-8 mt-6">
+      {/* Destinasi Section */}
+      <div className="px-16 py-12">
+        <h2 className="text-xl font-bold text-[#242277] uppercase mb-2">Top Destinasi</h2>
+        <h3 className="text-3xl font-bold text-[#FA9A0A] mb-8">Eksplor top destinasi</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Left Section */}
-          <div>
-            <h4 className="font-bold">Tentang TravelAble</h4>
-            <p className="text-sm mt-2">Rekomendasi wisata aksesibel untuk disabilitas dengan pemandu wisata terlatih.</p>
-            <h5 className="font-semibold mt-4">Panduan Informasi</h5>
-            <ul className="text-sm mt-2 space-y-2">
-              <li><a href="#" className="hover:underline">Panduan Pengguna</a></li>
-              <li><a href="#" className="hover:underline">Tentang Kami</a></li>
-              <li><a href="#" className="hover:underline">Kontak & Dukungan</a></li>
-              <li><a href="#" className="hover:underline">FAQ's</a></li>
-            </ul>
-            <p className="mt-6">&copy; TravelAble</p>
-          </div>
-
-          {/* Middle Section */}
-          <div>
-            <h5 className="font-bold">Alamat</h5>
-            <p className="text-sm mt-2">Bojongsoang, Bandung</p>
-            <h5 className="font-bold mt-4">Email</h5>
-            <p className="text-sm mt-2">support@travelable.com</p>
-            <h5 className="font-bold mt-4">Hotline</h5>
-            <p className="text-sm mt-2">0800-1234-5678</p>
-          </div>
-
-          {/* Right Section */}
-          <div className="text-center">
-            <img src="/logo.png" alt="TravelAble Logo" className="mx-auto h-12" />
-            <h5 className="font-bold mt-4">Social Media</h5>
-            <div className="flex justify-center mt-4 space-x-4">
-              <a href="#" className="text-white hover:text-gray-300">
-                <i className="fab fa-facebook text-2xl"></i>
-              </a>
-              <a href="#" className="text-white hover:text-gray-300">
-                <i className="fab fa-twitter text-2xl"></i>
-              </a>
-              <a href="#" className="text-white hover:text-gray-300">
-                <i className="fab fa-instagram text-2xl"></i>
-              </a>
-              <a href="#" className="text-white hover:text-gray-300">
-                <i className="fab fa-whatsapp text-2xl"></i>
-              </a>
+          {destinations.map((destination) => (
+            <div key={destination.id} className="bg-white p-4 rounded-lg shadow-md">
+              <img 
+                src={destination.image} 
+                alt={destination.name} 
+                className="w-full h-40 object-cover rounded-md mb-4"
+              />
+              <h4 className="font-bold text-lg mb-2 text-[#1D1B4B]">{destination.name}</h4>
+              <p className="text-sm text-gray-600 mb-1">{destination.location}</p>
             </div>
-          </div>
+          ))}
         </div>
-      </footer>
+      </div>
+
+{/* Petualangan Baru Section */}
+<div className="px-16 py-12 bg-[#FFFAF2] flex flex-col lg:flex-row gap-12">
+  {/* Bagian Kiri - Teks */}
+  <div className="w-full lg:w-1/2">
+    <h2 className="text-3xl font-bold text-[#242277]">Mencoba</h2>
+    <h3 className="text-4xl font-bold text-[#FA9A0A] mb-4">
+      Petualangan baru
+    </h3>
+    <p className="text-gray-600 mb-8 leading-relaxed">
+      Kami merekomendasikan beberapa tempat wisata yang ada di Bandung dan
+      sekitarnya, dengan demikian para pengguna akan mudah menemukan tempat
+      wisata yang akan dikunjungi.
+    </p>
+
+    {/* List Keunggulan */}
+    <ul className="space-y-4">
+      <li className="flex items-start gap-4">
+        <div className="w-6 h-6 bg-[#FA9A0A] rounded-full mt-1"></div>
+        <div>
+          <h4 className="text-lg font-bold text-[#242277]">
+            Keamanan Perjalanan
+          </h4>
+          <p className="text-gray-600">
+            Kami menyediakan keamanan bagi pelanggan disabilitas dengan
+            menyediakan pemandu yang sudah sesuai dengan kriteria pelanggan
+            disabilitas.
+          </p>
+        </div>
+      </li>
+      <li className="flex items-start gap-4">
+        <div className="w-6 h-6 bg-[#242277] rounded-full mt-1"></div>
+        <div>
+          <h4 className="text-lg font-bold text-[#242277]">
+            Harga Ramah Dikantong
+          </h4>
+          <p className="text-gray-600">
+            Kami menyediakan rekomendasi wisata dan pelayanan pemandu yang
+            ramah dikantong pelanggan.
+          </p>
+        </div>
+      </li>
+      <li className="flex items-start gap-4">
+        <div className="w-6 h-6 bg-[#FA9A0A] rounded-full mt-1"></div>
+        <div>
+          <h4 className="text-lg font-bold text-[#242277]">
+            Kenyamanan Akomodasi
+          </h4>
+          <p className="text-gray-600">
+            Kami merekomendasikan wisata yang mudah diakses bagi pelanggan
+            disabilitas.
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  {/* Bagian Kanan - Gambar */}
+  <div className="w-full lg:w-1/2 relative">
+    <img
+      src={MainImage}
+      alt="Main"
+      className="w-full h-[400px] object-cover rounded-lg shadow-lg"
+    />
+    <div className="absolute bottom-4 left-4 flex gap-4">
+      <img
+        src={SmallImage1}
+        alt="Small 1"
+        className="w-[180px] h-[120px] object-cover rounded-lg shadow-md"
+      />
+      <img
+        src={SmallImage2}
+        alt="Small 2"
+        className="w-[180px] h-[120px] object-cover rounded-lg shadow-md"
+      />
+    </div>
+  </div>
+</div>
+
     </div>
   );
 };
 
-export default DashboardPengguna;
+export default DashboardUser;
