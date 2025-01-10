@@ -1,11 +1,55 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff, ChevronDown, Calendar } from 'lucide-react';
+import { Eye, EyeOff, ChevronDown } from 'lucide-react';
 import gambarKiri from './assets/kiri butuh.png';
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [nama, setNama] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const handleRegister = async (e) => {
+    e.preventDefault(); // Mencegah reload halaman
+    setErrorMessage('');
+    setSuccessMessage('');
+
+    try {
+      // Mapping role dari frontend ke nilai yang sesuai di backend
+      const mappedRole = role === "pengguna" ? "customer" : "pemandu";
+
+      // Data yang akan dikirim ke backend
+      const data = { nama, email, password, role: mappedRole };
+
+      // Request ke backend
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      // Parsing hasil response
+      const result = await response.json();
+
+      if (response.ok) {
+        setSuccessMessage("Pendaftaran berhasil! Silakan login.");
+        setNama('');
+        setRole('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+      } else {
+        setErrorMessage(result.message || "Pendaftaran gagal. Silakan coba lagi.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setErrorMessage("Terjadi kesalahan pada server. Silakan coba lagi.");
+    }
+  };
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -19,12 +63,17 @@ export default function RegisterPage() {
           </div>
 
           {/* Register Form */}
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleRegister}>
+            {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
+            {successMessage && <p className="text-green-500 text-sm">{successMessage}</p>}
+            
             {/* Nama Input */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Nama</label>
               <input
                 type="text"
+                value={nama}
+                onChange={(e) => setNama(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
@@ -33,61 +82,26 @@ export default function RegisterPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
               <div className="relative">
-                <select 
+                <select
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"
                 >
-                  <option value="">Pengguna</option>
+                  <option value="">Pilih Role</option>
+                  <option value="pengguna">Pengguna</option>
                   <option value="pemandu">Pemandu</option>
                 </select>
                 <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
               </div>
             </div>
 
-            {/* Conditional Fields for Pemandu */}
-            {role === 'pemandu' && (
-              <>
-                {/* Gender Input */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
-                  <select 
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"
-                  >
-                    <option value="">Pilih Gender</option>
-                    <option value="male">Laki-laki</option>
-                    <option value="female">Perempuan</option>
-                  </select>
-                </div>
-
-                {/* Tanggal Lahir Input */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Tanggal Lahir</label>
-                  <div className="relative">
-                    <input
-                      type="date"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    />
-                    <Calendar className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none" />
-                  </div>
-                </div>
-
-                {/* Keahlian Input */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Keahlian</label>
-                  <textarea
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    rows={3}
-                  />
-                </div>
-              </>
-            )}
-
             {/* Email Input */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email Anda"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
@@ -98,20 +112,18 @@ export default function RegisterPage() {
               <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
               <div className="relative">
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
-                <button 
+                <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2"
                 >
-                  {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400" />
-                  ) : (
-                    <Eye className="h-5 w-5 text-gray-400" />
-                  )}
+                  {showPassword ? <EyeOff className="h-5 w-5 text-gray-400" /> : <Eye className="h-5 w-5 text-gray-400" />}
                 </button>
               </div>
             </div>
@@ -121,20 +133,18 @@ export default function RegisterPage() {
               <label className="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password</label>
               <div className="relative">
                 <input
-                  type={showConfirmPassword ? "text" : "password"}
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Konfirmasi Password"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
-                <button 
+                <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2"
                 >
-                  {showConfirmPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400" />
-                  ) : (
-                    <Eye className="h-5 w-5 text-gray-400" />
-                  )}
+                  {showConfirmPassword ? <EyeOff className="h-5 w-5 text-gray-400" /> : <Eye className="h-5 w-5 text-gray-400" />}
                 </button>
               </div>
             </div>
@@ -146,14 +156,6 @@ export default function RegisterPage() {
             >
               Mendaftar
             </button>
-
-            {/* Login Link */}
-            <div className="text-sm text-center">
-              <span className="text-gray-500">Sudah punya akun? </span>
-              <a href="/" className="text-indigo-600 hover:text-indigo-500">
-                Masuk
-              </a>
-            </div>
           </form>
         </div>
       </div>
@@ -162,8 +164,8 @@ export default function RegisterPage() {
       <div className="bg-[#242277] flex-1 flex items-center justify-center min-h-screen relative">
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
           <div className="absolute top-0 left-0 w-64 h-64 bg-orange-500 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-            <div className="absolute bottom-0 right-0 w-48 h-48 bg-blue-300 rounded-full transform translate-x-1/2 translate-y-1/2"></div>
-             <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-purple-800 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-48 h-48 bg-blue-300 rounded-full transform translate-x-1/2 translate-y-1/2"></div>
+          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-purple-800 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
         </div>
         <div className="relative z-10 flex items-center justify-center w-[500px] h-[500px]">
           <div className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-md rounded-lg p-6">
