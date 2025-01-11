@@ -23,6 +23,7 @@ import Artikel2 from "./page/user/artikel2.jsx";
 import Artikel3 from "./page/user/artikel3.jsx";
 import Artikel4 from "./page/user/artikel4.jsx";
 import Artikel5 from "./page/user/artikel5.jsx";
+import EditProfileUser from "./page/user/EditProfileUser.jsx";
 
 const LandingLayout = ({ children }) => (
   <div>
@@ -97,11 +98,19 @@ function App() {
               </UserLayout>
             }
           />
-                    <Route
+          <Route
             path="/artikel4"
             element={
               <UserLayout>
                 <Artikel4 />
+              </UserLayout>
+            }
+          />
+          <Route
+            path="/editprofileuser"
+            element={
+              <UserLayout>
+                <EditProfileUser />
               </UserLayout>
             }
           />
