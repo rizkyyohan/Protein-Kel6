@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
-import D1 from './assets/D1.png';
-import des1 from './assets/des1.png';
-import des2 from './assets/des2.png';
-import des3 from './assets/des3.png';
-import des4 from './assets/des4.png';
-import des5 from './assets/des5.png';
-import des6 from './assets/des6.png';
-import des7 from './assets/des7.png';
-import des8 from './assets/des8.png';
-import des9 from './assets/des9.png';
-import des10 from './assets/des10.png';
-import des11 from './assets/des11.png';
-import des12 from './assets/des12.png';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import D1 from "./assets/D1.png";
+import des1 from "./assets/des1.png";
+import des2 from "./assets/des2.png";
+import des3 from "./assets/des3.png";
+import des4 from "./assets/des4.png";
+import des5 from "./assets/des5.png";
+import des6 from "./assets/des6.png";
+import des7 from "./assets/des7.png";
+import des8 from "./assets/des8.png";
+import des9 from "./assets/des9.png";
+import des10 from "./assets/des10.png";
+import des11 from "./assets/des11.png";
+import des12 from "./assets/des12.png";
 
 const HeaderBanner = () => {
   const [selectedCategory, setSelectedCategory] = useState("Semua");
+  const navigate = useNavigate();
 
   // Daftar kategori
   const categories = ["Semua", "Alam", "Hiburan", "Museum", "Rekreasi"];
@@ -35,8 +37,8 @@ const HeaderBanner = () => {
     { id: 12, title: "Maribaya Hot Spring", price: "Rp. 40.000 - Rp. 60.000", img: des12 },
   ];
 
-  const handleImageClick = (title) => {
-    alert(`Anda mengklik: ${title}`);
+  const handleImageClick = (id) => {
+    navigate(`/destinasi/${id}`); // Navigasi ke halaman detail dengan id
   };
 
   return (
@@ -132,14 +134,13 @@ const HeaderBanner = () => {
       </div>
 
       {/* Destinasi Pilihan */}
-{/* Destinasi Pilihan */}
-<div className="p-6 bg-[#fefcf4]">
+      <div className="p-6 bg-[#fefcf4]">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {destinations.map((item) => (
             <div
               key={item.id}
               className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition duration-300"
-              onClick={() => handleImageClick(item.title)}
+              onClick={() => handleImageClick(item.id)}
             >
               <img src={item.img} alt={item.title} className="w-full h-40 object-cover" />
               <div className="p-4">
@@ -154,7 +155,7 @@ const HeaderBanner = () => {
                 {/* Rating Bintang */}
                 <div className="flex items-center mt-2">
                   <span className="text-sm font-medium" style={{ color: "#FF5722" }}>
-                    ★ 4.4 
+                    ★ 4.4
                   </span>
                 </div>
               </div>

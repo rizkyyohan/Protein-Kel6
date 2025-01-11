@@ -17,6 +17,12 @@ import JadwalPemandu from "./page/pemandu/jadwal pemandu.jsx";
 import ChatU from "./page/user/chatU.jsx";
 import ChatP from "./page/pemandu/chatP.jsx";
 import Tawaran from "./page/pemandu/tawaran.jsx";
+import DestinationDetail from "./page/user/detail destinasi.jsx";
+import Artikel1 from "./page/user/artikel1.jsx";
+import Artikel2 from "./page/user/artikel2.jsx";
+import Artikel3 from "./page/user/artikel3.jsx";
+import Artikel4 from "./page/user/artikel4.jsx";
+import Artikel5 from "./page/user/artikel5.jsx";
 
 const LandingLayout = ({ children }) => (
   <div>
@@ -68,6 +74,46 @@ function App() {
             }
           />
           <Route
+            path="/artikel1"
+            element={
+              <UserLayout>
+                <Artikel1 />
+              </UserLayout>
+            }
+          />
+          <Route
+            path="/artikel2"
+            element={
+              <UserLayout>
+                <Artikel2 />
+              </UserLayout>
+            }
+          />
+                    <Route
+            path="/artikel3"
+            element={
+              <UserLayout>
+                <Artikel3 />
+              </UserLayout>
+            }
+          />
+                    <Route
+            path="/artikel4"
+            element={
+              <UserLayout>
+                <Artikel4 />
+              </UserLayout>
+            }
+          />
+                              <Route
+            path="/artikel5"
+            element={
+              <UserLayout>
+                <Artikel5 />
+              </UserLayout>
+            }
+          />
+          <Route
             path="/pemesanan"
             element={
               <UserLayout>
@@ -104,6 +150,14 @@ function App() {
             element={
               <UserLayout>
                 <Destinasi />
+              </UserLayout>
+            }
+          />
+          <Route
+            path="/destinasi/:id"
+            element={
+              <UserLayout>
+                <DestinationDetail />
               </UserLayout>
             }
           />

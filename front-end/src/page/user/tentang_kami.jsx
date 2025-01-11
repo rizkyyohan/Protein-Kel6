@@ -6,8 +6,10 @@ import k22 from "../user/assets/k22.png";
 import TKA from "../user/assets/TKA.png";
 import k33 from "../user/assets/k33.png";
 import k44 from "../user/assets/k44.png";
+import { useNavigate } from "react-router-dom";
 
 const TentangKami = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center bg-gray-100 p-8">
       
@@ -80,7 +82,7 @@ const TentangKami = () => {
           <div className="flex bg-white shadow-lg rounded-lg overflow-hidden">
           <button
           className="relative w-full h-64 rounded-lg overflow-hidden shadow-lg group"
-          onClick={() => alert("Arahkan ke halaman rekomendasi!")}
+          onClick={() => navigate("/artikel1")}
         >
           <img
             src={k11}
@@ -103,7 +105,7 @@ const TentangKami = () => {
           <div className="flex bg-white shadow-lg rounded-lg overflow-hidden">
           <button
           className="relative w-full h-64 rounded-lg overflow-hidden shadow-lg group"
-          onClick={() => alert("Arahkan ke halaman rekomendasi!")}
+          onClick={() => navigate("/artikel2")}
         >
           <img
             src={k22}
@@ -128,7 +130,7 @@ const TentangKami = () => {
       <div className="w-full max-w-6xl p-8 mb-8">
         <button
           className="relative w-full h-64 rounded-lg overflow-hidden shadow-lg group"
-          onClick={() => alert("Arahkan ke halaman rekomendasi!")}
+          onClick={() => navigate("/artikel3")}
         >
           <img
             src={TKA}
@@ -145,7 +147,7 @@ const TentangKami = () => {
           <div className="flex bg-white shadow-lg rounded-lg overflow-hidden">
           <button
           className="relative w-full h-64 rounded-lg overflow-hidden shadow-lg group"
-          onClick={() => alert("Arahkan ke halaman rekomendasi!")}
+          onClick={() => navigate("/artikel4")}
         >
           <img
             src={k33}
@@ -169,7 +171,7 @@ const TentangKami = () => {
           <div className="flex bg-white shadow-lg rounded-lg overflow-hidden">
           <button
               className="relative w-full h-64 rounded-lg overflow-hidden shadow-lg group"
-              onClick={() => alert("Arahkan ke halaman rekomendasi!")}
+              onClick={() => navigate("/artikel5")}
             >
               <img
                 src={k44}

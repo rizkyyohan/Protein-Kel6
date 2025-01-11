@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import chat from "../assets/chat.png";
 
 function Header() {
+  const [username, setUsername] = useState("");
+
+  // Ambil nama pengguna dari localStorage saat komponen dimuat
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername); // Simpan nama ke state
+    }
+  }, []);
+
   return (
     <header className="flex justify-between items-center p-4 bg-white shadow-md">
       {/* Logo dan Judul */}
@@ -52,7 +62,7 @@ function Header() {
 
       {/* Profil Pengguna */}
       <div className="flex items-center space-x-2">
-        <span className="text-gray-700 font-medium">Hi, Messi</span>
+        <span className="text-gray-700 font-medium">Hi, {username || "Guest"}</span>
         <div className="w-8 h-8 bg-gray-300 rounded-full flex justify-center items-center">
           <span className="text-gray-500 text-sm font-bold">👤</span>
         </div>

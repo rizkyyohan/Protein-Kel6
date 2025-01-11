@@ -23,6 +23,10 @@ export default function LoginPage({ onLogin }) {
   
       if (response.ok) {
         // alert('Login berhasil');
+        localStorage.setItem("token", data.token);
+        // localStorage.setItem("username", data.nama);
+        localStorage.setItem("username", "Nama Sementara");
+
         if (onLogin) {
           onLogin(); // Panggil fungsi dari prop
         }
