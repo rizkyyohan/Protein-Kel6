@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom"; // Import useLocation
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function BookingPage() {
   const [selectedDestination, setSelectedDestination] = useState("");
@@ -12,11 +12,81 @@ function BookingPage() {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [extraAdded, setExtraAdded] = useState(false);
-  const location = useLocation();
-  const guide = location.state; // Terima data pemandu
+  const [totalPrice, setTotalPrice] = useState(0);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const guide = location.state?.guide; // Data pemandu dari state
+
+  // Redirect jika tidak ada data pemandu
+  useEffect(() => {
+    if (!guide) {
+      navigate("/listpemandu");
+    } else {
+      setTotalPrice(guide.price); // Inisialisasi total harga dengan harga pemandu
+    }
+  }, [guide, navigate]);
+
+  // Fungsi untuk toggle perlindungan ekstra
   const handleExtraToggle = () => {
-    setExtraAdded((prev) => !prev);
+    setExtraAdded((prev) => {
+      const newExtraAdded = !prev;
+      setTotalPrice((prevTotal) => (newExtraAdded ? prevTotal + 50000 : prevTotal - 50000));
+      return newExtraAdded;
+    });
+  };
+
+  const handleSubmit = async () => {
+    const token = localStorage.getItem("token"); // Ambil token dari localStorage
+  
+    if (!token) {
+      alert("Token tidak ditemukan. Silakan login ulang.");
+      navigate("/login"); // Redirect ke halaman login
+      return;
+    }
+  
+    const data = {
+      pengguna: localStorage.getItem("userId"), // Ambil ID pengguna dari localStorage
+      pemandu: guide._id, // ID pemandu dari state guide
+      destinasi: selectedDestination,
+      tanggal_pemesanan: `${startDate} - ${endDate}`,
+      alamat: "Alamat lengkap diambil dari form input", // Sesuaikan dari form
+      status: "Pending",
+      jumlah_orang: parseInt(selectedPeople.split(" ")[0]), // Ambil angka dari string (misalnya "2 Orang")
+      total_harga: totalPrice,
+      tambahan_perlindungan: extraAdded,
+    };
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/pemesanan", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Sertakan token di header
+        },
+        body: JSON.stringify(data),
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        alert("Pemesanan berhasil disimpan.");
+        navigate("/pembayaran"); // Redirect ke halaman pembayaran
+      } else {
+        alert(`Gagal menyimpan pemesanan: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Terjadi kesalahan saat menyimpan pemesanan.");
+    }
+  };
+  
+
+  // Fungsi untuk menangani perubahan nomor telepon
+  const handlePhoneNumberChange = (e) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setPhoneNumber(value);
+    }
   };
 
   const destinations = [
@@ -35,18 +105,6 @@ function BookingPage() {
 
   const peopleOptions = ["1 Orang", "2 Orang", "3 Orang", "4 Orang"];
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePhoneNumberChange = (e) => {
-    const value = e.target.value;
-    if (/^\d*$/.test(value)) {
-      // Hanya angka yang diperbolehkan
-      setPhoneNumber(value);
-    }
-  };
-
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       {/* Left Section */}
@@ -54,9 +112,17 @@ function BookingPage() {
         <div className="w-1/3 bg-white p-6 shadow-md flex flex-col items-center">
           <h2 className="text-lg font-bold mb-2">Pemesanan Anda</h2>
           <p className="text-sm text-gray-500 mb-4">Isi data anda pada pemesanan anda</p>
-          <img src="https://via.placeholder.com/150" alt="Pemandu" className="rounded-md w-32 h-32 object-cover mb-4" />
-          <p className="font-semibold text-gray-700">Rizky Yohan</p>
-          <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Profil Pemandu</button>
+          {guide ? (
+            <>
+              <img src={guide.image} alt={guide.name} className="rounded-md w-32 h-32 object-cover mb-4" />
+              <p className="font-semibold text-gray-700">{guide.name}</p>
+              <p className="text-sm text-gray-500">{guide.location}</p>
+              <p className="text-sm text-orange-500 mt-2">Rp {guide.price.toLocaleString()}</p>
+              <button className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Profil Pemandu</button>
+            </>
+          ) : (
+            <p className="text-red-500">Data pemandu tidak tersedia.</p>
+          )}
         </div>
 
         {/* Right Section */}
@@ -93,18 +159,13 @@ function BookingPage() {
                 📅 Mulai Kapan
                 <span>▼</span>
               </button>
-
-              {/* Dropdown Kalender */}
               {showCalendar && (
                 <div className="absolute bg-white shadow-md p-4 rounded-md z-10 mt-2">
                   <div className="flex gap-4">
-                    {/* Kalender Mulai */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Mulai</label>
                       <input type="date" className="border border-gray-300 p-2 rounded-md w-full" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
                     </div>
-
-                    {/* Kalender Selesai */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Selesai</label>
                       <input
@@ -112,7 +173,7 @@ function BookingPage() {
                         className="border border-gray-300 p-2 rounded-md w-full"
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
-                        min={startDate} // Tanggal selesai minimal harus setelah tanggal mulai
+                        min={startDate}
                       />
                     </div>
                   </div>
@@ -161,7 +222,7 @@ function BookingPage() {
               </div>
               <div>
                 <label className="block text-sm font-semibold mb-2">Email</label>
-                <input type="email" className="border border-gray-300 w-full p-2 rounded-md" placeholder="Email" value={email} onChange={handleEmailChange} />
+                <input type="email" className="border border-gray-300 w-full p-2 rounded-md" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
               <div className="col-span-2">
                 <label className="block text-sm font-semibold mb-2">Alamat Lengkap</label>
@@ -170,61 +231,35 @@ function BookingPage() {
             </div>
           </div>
 
-          {/* Sering Ditambahkan */}
-          <div className="mt-8 p-4 border rounded-md shadow-md text-gray">
-            <h3 className="text-[#242277] font-bold mb-2">Sering Ditambahkan Ke Pesanan</h3>
-            <div className="flex items-center">
-              <input type="checkbox" id="extraProtection" checked={extraAdded} onChange={handleExtraToggle} className="w-5 h-5 mr-4" />
-              <label htmlFor="extraProtection" className="text-lg font-semibold">
-                Perlindungan Extra
-              </label>
-            </div>
-            <p className="mt-2 text-sm">Perlindungan Extra adalah layanan tambahan dari Pemandu TravelAble untuk mempersiapkan peralatan medis tambahan seperti P3K dan alat lainnya yang bisa didiskusikan di kolom chat.</p>
-            <div className="mt-4 flex justify-between items-center text-sm">
-              <span className="font-bold">Info</span>
-              <span className="font-bold">RP. 50.000/pax</span>
-            </div>
-          </div>
-
-          {/* Detail Lokasi Kumpul */}
-          <div className="mt-8 p-4 border rounded-md shadow-md bg-white">
-            <h3 className="text-[#242277] text-lg font-bold mb-4">Detail Lokasi Kumpul</h3>
-            <div className="rounded-md overflow-hidden mb-4">
-              <img src="https://via.placeholder.com/500x300" alt="Lokasi Kumpul" className="w-full" />
-            </div>
-            <ul className="text-sm text-gray-700 list-disc pl-4">
-              <li>Jalan Telekomunikasi 2</li>
-              <li>Sukapura, Kabupaten Bandung, 40267</li>
-            </ul>
-          </div>
-          {/*buatkan rincian harga tepat berada di bawah di detail lokasi kumpul*/}
           {/* Rincian Harga */}
           <div className="mt-4 p-4 border rounded-md shadow-md bg-white">
             <h3 className="text-[#FA9A0A] text-lg font-bold mb-4">Rincian Harga</h3>
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm font-semibold text-gray-700">Harga yang Anda bayar</span>
-              <span className="text-lg font-bold text-[#FA9A0A]">RP. 420.000</span>
+              <span className="text-lg font-bold text-[#FA9A0A]">Rp {totalPrice.toLocaleString()}</span>
             </div>
             <hr className="my-2 border-[#FA9A0A]-300" />
             <div className="flex justify-between items-center text-sm mb-2">
-              <span>Paket (1x)</span>
-              <span className="font-bold">RP. 320.000</span>
+              <span>Harga Pemandu</span>
+              <span className="font-bold">Rp {guide.price.toLocaleString()}</span>
             </div>
-            <div className="flex justify-between items-center text-sm mb-2">
-              <span>Pemandu Spesialis</span>
-              <span className="font-bold">RP. 50.000</span>
-            </div>
-            <div className="flex justify-between items-center text-sm">
-              <span>Titik Penjemputan</span>
-              <span className="font-bold">RP. 50.000</span>
-            </div>
+            {extraAdded && (
+              <div className="flex justify-between items-center text-sm mb-2">
+                <span>Perlindungan Extra</span>
+                <span className="font-bold">Rp 50.000</span>
+              </div>
+            )}
           </div>
+
           {/* Button Lanjutkan Ke Pembayaran */}
           <div className="mt-4 flex justify-end">
-            <button className="bg-[#FA9A0A] text-white px-6 py-3 rounded-md hover:bg-[#e58907] shadow-md" onClick={() => (window.location.href = "/pembayaran")}>
-              Lanjutkan Ke Pembayaran
+            <button
+              className="bg-[#FA9A0A] text-white px-6 py-3 rounded-md hover:bg-[#e58907] shadow-md"
+              onClick={handleSubmit}
+            >
+            Lanjutkan Ke Pembayaran
             </button>
-          </div>
+          </div>  
         </div>
       </div>
     </div>
