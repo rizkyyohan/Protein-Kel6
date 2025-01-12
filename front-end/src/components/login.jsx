@@ -9,6 +9,11 @@ export default function LoginPage({ onLogin }) {
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
+    if (!email || !password) {
+      alert('Email dan password harus diisi!');
+      return;
+    }
+  
     try {
       const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
@@ -19,39 +24,42 @@ export default function LoginPage({ onLogin }) {
       });
   
       const data = await response.json();
-      console.log(data); // Tambahkan ini untuk melihat response
+  
+      console.log('Respons dari API:', data); // Debugging respons API
   
       if (response.ok) {
-        // alert('Login berhasil');
-        localStorage.setItem("token", data.token);
-        // localStorage.setItem("username", data.nama);
-        localStorage.setItem("username", "Nama Sementara");
-
-        if (onLogin) {
-          onLogin(); // Panggil fungsi dari prop
+        // Simpan token dan username ke localStorage
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('username', data.user.nama || 'Pengguna');
+  
+        // Ambil role dari data.user
+        const userRole = data.user.role.toLowerCase();
+  
+        // Redirect berdasarkan role
+        if (userRole === 'customer') {
+          window.location.href = '/DashboardUser'; // Halaman untuk customer
+        } else if (userRole === 'pemandu') {
+          window.location.href = '/DashboardPemandu'; // Halaman untuk pemandu
+        } else {
+          console.error('Role tidak dikenali:', userRole);
+          alert('Role tidak dikenali');
         }
   
-        // Perulangan untuk memastikan redirect berhasil
-        let loginSuccess = true; // Flag untuk status login
-        let redirectCount = 0; // Hitungan percobaan redirect
-  
-        while (loginSuccess && redirectCount < 3) { // Batasi perulangan maksimal 3 kali
-          try {
-            window.location.href = '/DashboardUser'; // Halaman dashboard
-            break; // Hentikan perulangan jika redirect berhasil
-          } catch (err) {
-            console.error('Redirect gagal, mencoba lagi...', err);
-            redirectCount++;
-          }
+        // Panggil fungsi onLogin jika ada
+        if (onLogin) {
+          onLogin();
         }
       } else {
-        alert(data.message || 'Login gagal, silakan coba lagi');
+        console.error('Error dari server:', data);
+        alert(data.message || 'Login gagal, silakan coba lagi.');
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Terjadi kesalahan, silakan coba lagi');
+      alert('Terjadi kesalahan saat login. Silakan coba lagi.');
     }
   };
+  
+
   return (
     <div className="flex h-screen">
       {/* Bagian Kiri */}
@@ -65,7 +73,6 @@ export default function LoginPage({ onLogin }) {
           <div className="bg-white bg-opacity-20 backdrop-filter backdrop-blur-md rounded-lg p-6">
             <h2 className="text-white text-2xl font-bold mt-4">Mulailah perjalanan Anda dengan TravelAble!</h2>
             <img src={gambarKiri} alt="Gambar Orang" className="w-96 h-96 object-cover object-center" />
-            {/* <img src="./assets/kiri butuh.png" alt="Gambar Orang" className="w-400 h-400 object-cover object-center " /> */}
           </div>
         </div>
       </div>

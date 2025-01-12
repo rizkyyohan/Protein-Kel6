@@ -24,6 +24,7 @@ import Artikel3 from "./page/user/artikel3.jsx";
 import Artikel4 from "./page/user/artikel4.jsx";
 import Artikel5 from "./page/user/artikel5.jsx";
 import EditProfileUser from "./page/user/EditProfileUser.jsx";
+import EditProfilePemandu from "./page/pemandu/edit profile.jsx";
 
 const LandingLayout = ({ children }) => (
   <div>
@@ -111,6 +112,14 @@ function App() {
             element={
               <UserLayout>
                 <EditProfileUser />
+              </UserLayout>
+            }
+          />
+                    <Route
+            path="/editp rofile"
+            element={
+              <UserLayout>
+                <EditProfilePemandu />
               </UserLayout>
             }
           />
